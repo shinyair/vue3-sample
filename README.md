@@ -5,6 +5,8 @@ This template should help get you started developing with Vue 3 and TypeScript i
 * template language: Vue 3 in TypeScript
 * frontend tooling: Vite
 * package management: yarn v2
+* linter: ESLint
+* formatter: Prettier
 
 ## Description
 
@@ -46,7 +48,10 @@ yarn run dev
 
 ### Lint
 
-// TODO:
+```
+# bash
+yarn run lint
+```
 
 ### Test
 
@@ -63,6 +68,16 @@ yarn run dev
 * add `nodeLinker: node-modules` in `.yarnrc.yml` to disable pnp and add `node_modules` in `.gitignore`
 * add `src/*.js`and `src/*.d.ts` in `.gitignore`
 * run `yarn install`
+
+### ESLint and Prettier
+* run `yarn add -D eslint eslint-plugin-vue`
+* add eslint config file `eslint.config.js` by `yarn eslint --init`
+* run `yarn add -D vue-eslint-parser @typescript-eslint/parser`
+* config `eslint.config.js` according to [eslint configurations](https://eslint.org/docs/latest/use/configure/configuration-files) and [eslint-plugin-vue configurations](https://eslint.vuejs.org/user-guide/#configuration-eslint-config-js)
+* run `yarn add -D prettier eslint-plugin-prettier eslint-config-prettier`
+* config `eslint.config.js` according to [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) and  [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)
+* add `lint` script in `package.json` to run `eslint`
+* TODO: add `eslint-plugin-import` [[Feature Request] Support new ESLint flat config](https://github.com/import-js/eslint-plugin-import/issues/2556)
 
 ## Help
 
