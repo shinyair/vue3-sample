@@ -8,6 +8,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 * linter: ESLint
 * formatter: Prettier
 * internationalization: i18n
+* component library: Element Plus (Element UI for Vue 3)
 
 ## Description
 
@@ -84,6 +85,13 @@ yarn run lint
 * run `yarn add vue-i18n`
 * add and config `i18n` according to [vue-i18n configurations](https://vue-i18n.intlify.dev/guide/installation.html)
 * add locale json files for supported languages in `src/assets`
+
+### Element Plus
+* run `yarn add element-plus @element-plus/icons-vue @vueuse/core`
+* run `yarn add -D sass`
+* config `Element Plus` according to [Element Plus Quick Start](https://element-plus.org/en-US/guide/quickstart.html)
+* config `Element Plus Icons` according to [Element Plus Icons Configurations](https://element-plus.org/en-US/component/icon.html)
+* config `Dark Mode` according to [Dark Mode](https://element-plus.org/en-US/guide/dark-mode.html)
 
 ## Help
 
