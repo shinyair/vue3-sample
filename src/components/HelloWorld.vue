@@ -31,22 +31,24 @@ function toggleTheme() {
 <template>
   <h1>{{ msg }}</h1>
 
-  <div class="card">
-    <el-button type="primary" @click="count++">
-      {{ $t("hello.count", { number: count }) }}
-    </el-button>
-    <el-button type="primary" @click="toggleLanguage">
-      {{ $t("hello.change_language") }}
-    </el-button>
-    <el-switch
-      :model-value="isDark"
-      class="mt-2"
-      style="margin-left: 24px"
-      inline-prompt
-      :active-icon="Moon"
-      :inactive-icon="Sunny"
-      @change="toggleTheme"
-    />
+  <div class="flex flex-col justify-center items-center">
+    <div class="flex flex-row justify-center items-center">
+      <el-button type="primary" @click="count++">
+        {{ $t("hello.count", { number: count }) }}
+      </el-button>
+      <el-button type="primary" @click="toggleLanguage">
+        {{ $t("hello.change_language") }}
+      </el-button>
+      <el-switch
+        :model-value="isDark"
+        class="mt-2"
+        style="margin-left: 24px"
+        inline-prompt
+        :active-icon="Moon"
+        :inactive-icon="Sunny"
+        @change="toggleTheme"
+      />
+    </div>
     <p>
       Edit
       <code>components/HelloWorld.vue</code> to test HMR

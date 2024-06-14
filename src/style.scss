@@ -1,5 +1,9 @@
 // import dark theme
 @use "element-plus/theme-chalk/src/dark/css-vars.scss" as *;
+// import tailwind css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -23,10 +27,6 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
-
-.card {
-  padding: 2em;
 }
 
 #app {

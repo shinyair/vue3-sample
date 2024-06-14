@@ -9,6 +9,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 * formatter: Prettier
 * internationalization: i18n
 * component library: Element Plus (Element UI for Vue 3)
+* css framework: Tailwind CSS
 
 ## Description
 
@@ -92,6 +93,14 @@ yarn run lint
 * config `Element Plus` according to [Element Plus Quick Start](https://element-plus.org/en-US/guide/quickstart.html)
 * config `Element Plus Icons` according to [Element Plus Icons Configurations](https://element-plus.org/en-US/component/icon.html)
 * config `Dark Mode` according to [Dark Mode](https://element-plus.org/en-US/guide/dark-mode.html)
+
+### Tailwind CSS
+* run `yarn add -D tailwindcss@latest postcss@latest autoprefixer@latest`
+* run `yarn tailwindcss init -p`
+* config `Tailwind CSS` according to [Install Tailwind CSS with Vue 3 and Vite](https://v2.tailwindcss.com/docs/guides/vue-3-vite)
+* add `typography` settings if necessary
+  * run `yarn add -D @tailwindcss/typography`
+  * add `@tailwindcss/typography` in `tailwind.config.js` plugins for font configurations [Plugin Configurations](https://v2.tailwindcss.com/docs/configuration#plugins)
 
 ## Help
 
