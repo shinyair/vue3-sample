@@ -7,6 +7,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 * package management: yarn v2
 * linter: ESLint
 * formatter: Prettier
+* internationalization: i18n
 
 ## Description
 
@@ -78,6 +79,11 @@ yarn run lint
 * config `eslint.config.js` according to [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) and  [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)
 * add `lint` script in `package.json` to run `eslint`
 * TODO: add `eslint-plugin-import` [[Feature Request] Support new ESLint flat config](https://github.com/import-js/eslint-plugin-import/issues/2556)
+
+### i18n
+* run `yarn add vue-i18n`
+* add and config `i18n` according to [vue-i18n configurations](https://vue-i18n.intlify.dev/guide/installation.html)
+* add locale json files for supported languages in `src/assets`
 
 ## Help
 

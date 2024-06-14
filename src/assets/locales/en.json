@@ -1,0 +1,9 @@
+{
+    "common": {
+        "title": "title"
+    },
+    "hello": {
+        "count": "count is {number}",
+        "change_language": "change language"
+    }
+}

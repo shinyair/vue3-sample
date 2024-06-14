@@ -1,16 +1,32 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
+import { changeLanguage } from "../i18n";
 
 defineProps<{ msg: string }>();
 
 const count = ref(0);
+const { locale } = useI18n(); // use as global scope
+
+function toggleLanguage() {
+  if (locale.value === "en") {
+    changeLanguage("zh");
+  } else {
+    changeLanguage("en");
+  }
+}
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
 
   <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
+    <button type="button" @click="count++">
+      {{ $t("hello.count", { number: count }) }}
+    </button>
+    <button ty0e="button" @click="toggleLanguage">
+      {{ $t("hello.change_language") }}
+    </button>
     <p>
       Edit
       <code>components/HelloWorld.vue</code> to test HMR

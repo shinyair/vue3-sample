@@ -1,0 +1,9 @@
+{
+    "common": {
+        "title": "标题"
+    },
+    "hello": {
+        "count": "计数：{number}",
+        "change_language": "切换语言"
+    }
+}
