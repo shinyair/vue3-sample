@@ -1,6 +1,10 @@
 {
     "common": {
-        "title": "title"
+        "title": "title",
+        "languages": {
+            "zh": "简体中文",
+            "en": "English"
+        }
     },
     "hello": {
         "count": "count is {number}",

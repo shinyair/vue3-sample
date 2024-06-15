@@ -11,7 +11,7 @@ const MESSAGES = {
   zh: zh,
 };
 
-export declare type LOCALE = keyof typeof MESSAGES;
+declare type Language = keyof typeof MESSAGES;
 
 const getLanguage = () => {
   const browserLang = navigator.language
@@ -20,7 +20,8 @@ const getLanguage = () => {
   return localStorage.getItem(LANG_KEY) || browserLang || DEFAULT_LANG;
 };
 
-export const changeLanguage = (lang: LOCALE) => {
+export const changeLanguage = (language: string) => {
+  const lang = (language as Language) || DEFAULT_LANG;
   localStorage.setItem(LANG_KEY, lang);
   i18n.global.locale.value = lang;
 };

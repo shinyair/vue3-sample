@@ -1,10 +1,9 @@
 import { createApp } from "vue";
-import App from "./App.vue";
-import { i18n } from "./i18n";
 import ElementPlus from "element-plus";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
-import "element-plus/dist/index.css";
-import "./style.scss";
+import App from "./App.vue";
+import { i18n } from "./i18n";
+import "./index.scss";
 
 const app = createApp(App);
 app.use(i18n);
