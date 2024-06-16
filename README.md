@@ -11,6 +11,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 * component library: Element Plus (Element UI for Vue 3)
 * css framework: Tailwind CSS
 * vue store framework: Pinia
+* ajax client: Axios HTTP
 
 ## Description
 
@@ -106,6 +107,10 @@ yarn run lint
 ### Pinia
 * run `yarn add pinia`
 * config `pinia` according to [Getting Started](https://pinia.vuejs.org/getting-started.html)
+
+### Axios
+* run `yarn add axios`
+* config `axios` clients accoding to [Getting Started](https://axios-http.com/docs/intro)
 
 ## Help
 

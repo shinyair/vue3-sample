@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import LanguageSelector from "../components/common/LanguageSelector.vue";
 import ThemeSelector from "../components/common/ThemeSelector.vue";
+
+import { hello } from "../apis/echo";
 
 const props = defineProps<{
   msg: string;
 }>();
 const count = ref(0);
+const echoMessage = ref("");
+onMounted(async () => {
+  echoMessage.value = await hello("hello");
+});
 </script>
 
 <template>
@@ -59,6 +65,8 @@ const count = ref(0);
             in your IDE for a better DX
           </p>
           <p class="py-8">Click on the Vite and Vue logos to learn more</p>
+
+          <p class="py-8">{{ echoMessage }}</p>
         </div>
       </div>
     </el-scrollbar>
