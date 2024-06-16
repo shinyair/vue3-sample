@@ -5,6 +5,7 @@ import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import App from "./App.vue";
 import { i18n } from "./i18n";
 import * as env from "./constants/env";
+import { makeServer } from "./server";
 import "./index.scss";
 
 const printDevEnvVars = () => {
@@ -13,7 +14,16 @@ const printDevEnvVars = () => {
   }
   console.log(JSON.stringify(env));
 };
+const runMockServer = () => {
+  if (!env.IS_DEV || env.MODE !== "development") {
+    return;
+  }
+  makeServer({
+    environment: env.MODE,
+  });
+};
 printDevEnvVars();
+runMockServer();
 
 const pinia = createPinia();
 const app = createApp(App);

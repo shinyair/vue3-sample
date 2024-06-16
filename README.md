@@ -12,6 +12,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 * css framework: Tailwind CSS
 * vue store framework: Pinia
 * ajax client: Axios HTTP
+* api mocking library: Mirage JS
 
 ## Description
 
@@ -112,6 +113,12 @@ yarn run lint
 * run `yarn add axios`
 * config `axios` clients accoding to [Getting Started](https://axios-http.com/docs/intro)
 
+### Mirage JS
+* run `yarn add --dev miragejs`
+* add a `server` folder in the `src` folder to config `migragejs` to mock backend server according to [Introduction](https://miragejs.com/docs/getting-started/introduction/)
+* implement api mocking then config models and routes in the mocked server
+* hint: use `as any` to convert `schema` as type `any` to avoid annoying declarations
+
 ## Help
 
 Any advise for common problems or issues.
@@ -136,3 +143,4 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 Inspiration, code snippets, etc.
 * [awesome-readme](https://github.com/matiassingers/awesome-readme)
+* [vue-element-plus-admin](https://github.com/kailong321200875/vue-element-plus-admin)

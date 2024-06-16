@@ -3,7 +3,7 @@ import { ref, onMounted } from "vue";
 import LanguageSelector from "../components/common/LanguageSelector.vue";
 import ThemeSelector from "../components/common/ThemeSelector.vue";
 
-import { hello } from "../apis/echo";
+import { record } from "../apis/echo";
 
 const props = defineProps<{
   msg: string;
@@ -11,7 +11,7 @@ const props = defineProps<{
 const count = ref(0);
 const echoMessage = ref("");
 onMounted(async () => {
-  echoMessage.value = await hello("hello");
+  echoMessage.value = await record("hello");
 });
 </script>
 
