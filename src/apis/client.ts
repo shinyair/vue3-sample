@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
+import { BASE_URL } from "../constants/env";
 
-const BASE_URL = window.location.origin;
 const REQUEST_TIMEOUT = 30000;
 const client = axios.create({
   baseURL: BASE_URL,
