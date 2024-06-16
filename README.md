@@ -10,6 +10,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 * internationalization: i18n
 * component library: Element Plus (Element UI for Vue 3)
 * css framework: Tailwind CSS
+* vue store framework: Pinia
 
 ## Description
 
@@ -101,6 +102,10 @@ yarn run lint
 * add `typography` settings if necessary
   * run `yarn add -D @tailwindcss/typography`
   * add `@tailwindcss/typography` in `tailwind.config.js` plugins for font configurations [Plugin Configurations](https://v2.tailwindcss.com/docs/configuration#plugins)
+
+### Pinia
+* run `yarn add pinia`
+* config `pinia` according to [Getting Started](https://pinia.vuejs.org/getting-started.html)
 
 ## Help
 

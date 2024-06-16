@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { changeLanguage } from "../../i18n";
+import { useLocaleStore } from "../../stores/locale";
 
 // props
 const props = defineProps<{
@@ -8,9 +8,10 @@ const props = defineProps<{
 }>();
 // hooks
 const { locale, availableLocales } = useI18n();
+const { changeLocale } = useLocaleStore();
 // methods
 const onLocaleChange = (locale: string) => {
-  changeLanguage(locale);
+  changeLocale(locale);
 };
 </script>
 
