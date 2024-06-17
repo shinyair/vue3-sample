@@ -13,6 +13,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 * vue store framework: Pinia
 * ajax client: Axios HTTP
 * api mocking library: Mirage JS
+* router framework: Vue Router (vue-router)
 
 ## Description
 
@@ -118,6 +119,10 @@ yarn run lint
 * add a `server` folder in the `src` folder to config `migragejs` to mock backend server according to [Introduction](https://miragejs.com/docs/getting-started/introduction/)
 * implement api mocking then config models and routes in the mocked server
 * hint: use `as any` to convert `schema` as type `any` to avoid annoying declarations
+
+### vue-router
+* run `yarn add vue-router`
+* config routes and router view according to [Getting Started](https://router.vuejs.org/guide/). recommand to add a `routes` folder in the `src` folder to configure a `router`
 
 ## Help
 

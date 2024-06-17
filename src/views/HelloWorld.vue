@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 import LanguageSelector from "../components/common/LanguageSelector.vue";
 import ThemeSelector from "../components/common/ThemeSelector.vue";
-
-import { record } from "../apis/echo";
 
 const props = defineProps<{
   msg: string;
 }>();
+const router = useRouter();
 const count = ref(0);
-const echoMessage = ref("");
-onMounted(async () => {
-  echoMessage.value = await record("hello");
-});
+const go2EchoPage = () => {
+  router.push({ path: "/echohello", query: { message: props.msg } });
+};
 </script>
 
 <template>
@@ -42,8 +41,11 @@ onMounted(async () => {
         </div>
 
         <div class="flex flex-col justify-center items-center">
-          <el-button type="primary" @click="count++">
+          <el-button type="primary" class="mt-2" @click="count++">
             {{ $t("hello.count", { number: count }) }}
+          </el-button>
+          <el-button type="primary" class="mt-2" @click="go2EchoPage">
+            {{ $t("hello.to_echo_page") }}
           </el-button>
           <p class="py-8">
             Edit
@@ -65,8 +67,6 @@ onMounted(async () => {
             in your IDE for a better DX
           </p>
           <p class="py-8">Click on the Vite and Vue logos to learn more</p>
-
-          <p class="py-8">{{ echoMessage }}</p>
         </div>
       </div>
     </el-scrollbar>

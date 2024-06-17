@@ -839,7 +839,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/devtools-api@npm:^6.5.0":
+"@vue/devtools-api@npm:^6.5.0, @vue/devtools-api@npm:^6.5.1":
   version: 6.6.3
   resolution: "@vue/devtools-api@npm:6.6.3"
   checksum: 10c0/e9e712f687e901b1ecfcfb958a305db9729d37408677ea8d63189176406196c7c6d4e9580216de590ccbe68037f323c163293e917cfad3834d7f3299cd5a22bb
@@ -3684,6 +3684,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"vue-router@npm:^4.3.3":
+  version: 4.3.3
+  resolution: "vue-router@npm:4.3.3"
+  dependencies:
+    "@vue/devtools-api": "npm:^6.5.1"
+  peerDependencies:
+    vue: ^3.2.0
+  checksum: 10c0/bd58907346b899acb896f58764c6eb0f6ff7a68bd6e5781a774c746ac3dad5d7cc05a7a9d2b3c46288a3de2bfe94b14613fe1c50a06dbaf749f92f2fd8126138
+  languageName: node
+  linkType: hard
+
 "vue-template-compiler@npm:^2.7.14":
   version: 2.7.16
   resolution: "vue-template-compiler@npm:2.7.16"
@@ -3738,6 +3749,7 @@ __metadata:
     vue: "npm:^3.4.21"
     vue-eslint-parser: "npm:^9.4.3"
     vue-i18n: "npm:^9.13.1"
+    vue-router: "npm:^4.3.3"
     vue-tsc: "npm:^2.0.6"
   languageName: unknown
   linkType: soft

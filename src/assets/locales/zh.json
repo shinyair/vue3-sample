@@ -8,6 +8,8 @@
     },
     "hello": {
         "count": "计数：{number}",
-        "change_language": "切换语言"
+        "change_language": "切换语言",
+        "echo_page": "Echo页面",
+        "to_echo_page": "打开Echo页面"
     }
 }

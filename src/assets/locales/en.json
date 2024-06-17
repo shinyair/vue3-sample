@@ -8,6 +8,8 @@
     },
     "hello": {
         "count": "count is {number}",
-        "change_language": "change language"
+        "change_language": "change language",
+        "echo_page": "Echo Page",
+        "to_echo_page": "Go to Echo Page"
     }
 }

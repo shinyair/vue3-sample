@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import HelloWorld from "./views/HelloWorld.vue";
 
 const { t, locale } = useI18n();
 onMounted(() => {
@@ -13,7 +12,7 @@ watch(locale, () => {
 </script>
 
 <template>
-  <HelloWorld msg="Vite + Vue" />
+  <RouterView />
 </template>
 
 <style scoped lang="scss"></style>
