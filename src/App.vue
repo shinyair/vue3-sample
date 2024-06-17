@@ -12,7 +12,7 @@ watch(locale, () => {
 </script>
 
 <template>
-  <RouterView />
+  <router-view />
 </template>
 
 <style scoped lang="scss"></style>
