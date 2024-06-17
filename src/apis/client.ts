@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import { BASE_URL } from "@/constants/env";
 
 const REQUEST_TIMEOUT = 30000;
-const client = axios.create({
+export const client = axios.create({
   baseURL: BASE_URL,
   timeout: REQUEST_TIMEOUT,
   headers: {
@@ -23,5 +23,3 @@ client.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-
-export default client;

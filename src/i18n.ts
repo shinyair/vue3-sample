@@ -1,29 +1,14 @@
 import { createI18n } from "vue-i18n";
+import en from "@/assets/locales/en";
+import zh from "@/assets/locales/zh";
 
-import en from "@/assets/locales/en.json";
-import zh from "@/assets/locales/zh.json";
-
-const LANG_KEY = "lang";
 const DEFAULT_LANG = "en";
-
-const MESSAGES = {
-  en: en,
-  zh: zh,
-};
-
-declare type Language = keyof typeof MESSAGES;
 
 const getLanguage = () => {
   const browserLang = navigator.language
     ? navigator.language.split("-")[0]
     : null;
-  return localStorage.getItem(LANG_KEY) || browserLang || DEFAULT_LANG;
-};
-
-export const changeLanguage = (language: string) => {
-  const lang = (language as Language) || DEFAULT_LANG;
-  localStorage.setItem(LANG_KEY, lang);
-  i18n.global.locale.value = lang;
+  return browserLang || DEFAULT_LANG;
 };
 
 export const i18n = createI18n({
@@ -32,5 +17,8 @@ export const i18n = createI18n({
   legacy: false,
   allowComposition: true,
   globalInjection: true,
-  messages: MESSAGES,
+  messages: {
+    en: en,
+    zh: zh,
+  },
 });
