@@ -14,6 +14,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 * ajax client: Axios HTTP
 * api mocking library: Mirage JS
 * router framework: Vue Router (vue-router)
+* event emitter: mitt (Event Bus - which is included in the `vue` is removed since Vue 3)
 
 ## Description
 
@@ -123,6 +124,11 @@ yarn run lint
 ### vue-router
 * run `yarn add vue-router`
 * config routes and router view according to [Getting Started](https://router.vuejs.org/guide/). recommand to add a `routes` folder in the `src` folder to configure a `router`
+
+### mitt
+* `mitt` and `tiny-emitter` are suggested by `vue` to implement the Event Bus pattern in Vue 3. [Implement Event Bus in Vue 3](https://v3-migration.vuejs.org/breaking-changes/events-api#event-bus)
+* run `yarn add mitt`
+* provide  `emitter` in vue app and inject it in the components. [Provide / Inject](https://v3-migration.vuejs.org/breaking-changes/global-api#provide-inject)
 
 ## Help
 
