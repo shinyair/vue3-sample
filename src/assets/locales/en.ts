@@ -9,6 +9,10 @@ export default {
   home: {
     hello: "Hello",
   },
+  auth: {
+    sign_in: "Sign In",
+    sign_out: "Sign Out",
+  },
   page: {
     error: "Server Error",
     forbidden: "Forbidden",

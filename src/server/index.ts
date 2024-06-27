@@ -1,11 +1,14 @@
-import { createServer } from "miragejs";
+import { createServer, Model } from "miragejs";
+import * as user from "@/server/user";
 
 const STORAGE_DB_KEY = "migratejs-db";
 
 export const makeServer = ({ environment = "development" }) => {
   const server = createServer({
     environment: environment,
-    models: {},
+    models: {
+      user: Model,
+    },
     routes() {
       const handledRequest = this.pretender.handledRequest;
       this.pretender.handledRequest = (verb, path, requeset) => {
@@ -17,6 +20,7 @@ export const makeServer = ({ environment = "development" }) => {
         handledRequest && handledRequest(verb, path, requeset);
       };
       this.namespace = "";
+      this.post("/auth/signin", user.signIn);
       this.passthrough();
     },
     seeds(server) {
@@ -25,7 +29,9 @@ export const makeServer = ({ environment = "development" }) => {
       if (dbData) {
         server.db.loadData(JSON.parse(dbData));
       } else {
-        server.db.loadData({});
+        server.db.loadData({
+          users: user.DATA,
+        });
       }
     },
   });

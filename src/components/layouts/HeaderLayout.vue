@@ -3,6 +3,7 @@ import { computed } from "vue";
 import LogoTitle from "@/components/common/LogoTitle.vue";
 import LanguageSelector from "@/components/common/LanguageSelector.vue";
 import ThemeSelector from "@/components/common/ThemeSelector.vue";
+import UserMenu from "@/components/common/UserMenu.vue";
 
 // props
 export interface Props {
@@ -10,12 +11,14 @@ export interface Props {
   horizontalScrollable?: boolean;
   hasLanguageSelector?: boolean;
   hasThemeSelector?: boolean;
+  hasUserMenu?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   verticalScrollable: true,
   horizontalScrollable: true,
   hasLanguageSelector: true,
   hasThemeSelector: true,
+  hasUserMenu: true,
 });
 // computed
 const canScrollX = computed(() => {
@@ -35,6 +38,7 @@ const canScroll = computed(() => {
       <div class="flex flex-row justify-end items-center">
         <LanguageSelector v-if="hasLanguageSelector" class="ml-2" />
         <ThemeSelector v-if="hasThemeSelector" class="ml-2" />
+        <UserMenu v-if="hasUserMenu" class="ml-2" />
       </div>
     </el-header>
     <el-main class="flex flex-col justify-start items-start overflow-hidden">
