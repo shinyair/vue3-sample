@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
+import { PATHS } from "@/routes";
 import logo from "@/assets/logo.svg";
 
 // hooks
 const router = useRouter();
 // methods
 const onClickLogo = () => {
-  router.push("/");
+  router.push({ name: PATHS.home.name });
 };
 </script>
 <template>
