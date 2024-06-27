@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import FullLayout from "@/components/layouts/FullLayout.vue";
+import HeaderLayout from "@/components/layouts/HeaderLayout.vue";
 </script>
 
 <template>
-  <FullLayout>
+  <HeaderLayout>
     <div class="w-full grow flex flex-col justify-center items-center">
       <div>{{ $t("home.hello") }}</div>
     </div>
-  </FullLayout>
+  </HeaderLayout>
 </template>
 
 <style scoped lang="scss"></style>
