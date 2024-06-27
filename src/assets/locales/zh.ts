@@ -9,4 +9,9 @@ export default {
   home: {
     hello: "你好呀",
   },
+  page: {
+    error: "500",
+    forbidden: "403",
+    notFound: "404",
+  },
 };

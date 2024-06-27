@@ -9,4 +9,9 @@ export default {
   home: {
     hello: "Hello",
   },
+  page: {
+    error: "Server Error",
+    forbidden: "Forbidden",
+    notFound: "Not Found",
+  },
 };
