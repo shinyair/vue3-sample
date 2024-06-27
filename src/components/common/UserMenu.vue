@@ -27,8 +27,7 @@ const userShortName = computed(() => {
 });
 // methods
 const onSignIn = () => {
-  // TODO: go to sign in
-  userStore.signIn("abc@dummy.com", "1");
+  router.push({ name: PATHS.auth.children.signIn.name });
 };
 const onSignOut = () => {
   userStore.signOut();

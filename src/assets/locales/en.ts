@@ -12,6 +12,11 @@ export default {
   auth: {
     sign_in: "Sign In",
     sign_out: "Sign Out",
+    error: {
+      no_account: "No Account Found",
+      wrong_email_password: "Wrong Email/Password Input",
+      unknown: "Unkown Error",
+    },
   },
   page: {
     error: "Server Error",
