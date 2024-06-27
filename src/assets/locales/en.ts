@@ -7,6 +7,8 @@ export default {
     },
     unknown: "Unknown",
     empty: "Empty",
+    ok: "OK",
+    cancel: "Cancel",
   },
   home: {
     title: "Home",

@@ -7,6 +7,8 @@ export default {
     },
     unknown: "未知",
     empty: "什么都没有",
+    ok: "OK",
+    cancel: "取消",
   },
   home: {
     title: "主页",
