@@ -30,6 +30,10 @@ export default {
     products: "产品",
     shops: "店铺",
     settings: "设定",
+    product: {
+      overview: "详情",
+      edit: "编辑",
+    },
   },
   page: {
     error: "500",
@@ -37,8 +41,13 @@ export default {
     notFound: "404",
   },
   error: {
+    session: {
+      sessionExpiredTitle: "登录已超时",
+      sessionExpiredMessage: "请重新登录。",
+    },
     load: {
       failedToLoadData: "数据加载失败。",
+      noPermissionToLoadData: "没有数据权限。",
     },
   },
 };

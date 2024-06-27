@@ -30,6 +30,10 @@ export default {
     products: "Products",
     shops: "Shops",
     settings: "Settings",
+    product: {
+      overview: "Overview",
+      edit: "Edit",
+    },
   },
   page: {
     error: "Server Error",
@@ -37,8 +41,13 @@ export default {
     notFound: "Not Found",
   },
   error: {
+    session: {
+      sessionExpiredTitle: "Session Expired",
+      sessionExpiredMessage: "Your session has expired, please sign in again.",
+    },
     load: {
       failedToLoadData: "Failed to load data.",
+      noPermissionToLoadData: "No permission to load data.",
     },
   },
 };

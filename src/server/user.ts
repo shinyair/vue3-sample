@@ -3,6 +3,8 @@ import { Request, Response } from "miragejs";
 import { AnyRegistry, AnyResponse } from "miragejs/-types";
 import Schema from "miragejs/orm/schema";
 
+import { issueJWT } from "./jwt";
+
 export const DATA = [
   {
     email: "abc@dummy.com",
@@ -25,12 +27,33 @@ const buildUserResponse = (email: string, avatar?: string) => {
     avatar: avatar,
   };
 };
-const buildSignInSucResponse = (email: string, avatar?: string) => {
-  const jwt = {
-    tokenValue: "mock_jwt",
-    issuedAt: -1,
-    expiresAt: -1,
+const buildPermissionResponse = (email: string) => {
+  if (email === "abc@dummy.com") {
+    return {
+      isFullPermission: true,
+      permitted: [],
+    };
+  }
+  if (email === "def@dummy.com") {
+    return {
+      isFullPermission: false,
+      permitted: [
+        "content/dashboard/read",
+        "content/product/product3/read",
+        "content/product/product3/write",
+        "content/product/product4/read",
+        "content/shop/shop1/read",
+        "content/settings/read",
+      ],
+    };
+  }
+  return {
+    isFullPermission: false,
+    permitted: ["content/dashboard/read"],
   };
+};
+const buildSignInSucResponse = (email: string, avatar?: string) => {
+  const jwt = issueJWT(email);
   return new Response(
     200,
     {
@@ -38,6 +61,7 @@ const buildSignInSucResponse = (email: string, avatar?: string) => {
     },
     {
       user: buildUserResponse(email, avatar),
+      permission: buildPermissionResponse(email),
       jwt: jwt,
     },
   );

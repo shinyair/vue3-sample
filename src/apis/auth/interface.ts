@@ -5,6 +5,10 @@ export interface AuthSuccessResponse {
     name?: string;
     avatar?: string;
   };
+  permission: {
+    isFullPermission: boolean;
+    permitted: string[];
+  };
   jwt: {
     tokenValue: string;
     issuedAt: number;
