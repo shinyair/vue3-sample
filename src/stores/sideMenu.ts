@@ -1,6 +1,9 @@
 import { ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { defineStore } from "pinia";
+import { Product, useProductStore } from "@/stores/product";
+import { Shop, useShopStore } from "@/stores/shop";
+import { PATHS } from "@/routes";
 
 export interface Menu {
   key: string;
@@ -74,6 +77,28 @@ const MENUS: Menu[] = [
   // },
 ];
 
+const getAllowedMenus = (menus: Menu[], products: Product[], shops: Shop[]) => {
+  return menus.map((menu) => {
+    const allowedMenu = { ...menu };
+    if (menu.key === "products") {
+      const children = products.map((product) => ({
+        key: `products_${product.id}`,
+        nameText: product.name,
+        path: `/content/products/${product.id}`,
+      }));
+      allowedMenu.children = children;
+    } else if (menu.key === "shops") {
+      const children = shops.map((shop) => ({
+        key: `shops_${shop.id}`,
+        nameText: shop.name,
+        path: `/content/shops/${shop.id}`,
+      }));
+      allowedMenu.children = children;
+    }
+    return allowedMenu;
+  });
+};
+
 const getMenuByPath = (path: string, menus: Menu[]) => {
   if (menus.length === 0) {
     return undefined;
@@ -118,14 +143,29 @@ const getMenuTreePathByMenuKey = (menuKey: string, menus: Menu[]) => {
 export const useSideMenuStore = defineStore("sideMenu", () => {
   // hooks
   const route = useRoute();
+  const router = useRouter();
+  const productStore = useProductStore();
+  const shopStore = useShopStore();
   // ref
   const menus = ref<Menu[]>([]);
   const activeMenu = ref<Menu | undefined>();
   const activeMenus = ref<Menu[]>([]);
   // methods
   const loadAllowedMenus = async () => {
-    // TOOD: test data
-    menus.value = MENUS;
+    try {
+      await Promise.all([
+        productStore.loadAllowedProducts(),
+        shopStore.loadAllowedShops(),
+      ]);
+      menus.value = getAllowedMenus(
+        MENUS,
+        productStore.products,
+        shopStore.shops,
+      );
+    } catch (err) {
+      menus.value = getAllowedMenus(MENUS, [], []);
+      router.push({ name: PATHS.error.name });
+    }
     activeMenu.value = getMenuByPath(route.path, menus.value);
     activeMenus.value = activeMenu.value
       ? getMenuTreePathByMenuKey(activeMenu.value.key, menus.value)
