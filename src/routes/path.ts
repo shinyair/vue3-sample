@@ -15,4 +15,13 @@ export const PATHS = {
     path: "/404",
     name: "notFound",
   },
+  auth: {
+    path: "/auth",
+    children: {
+      signIn: {
+        path: "signin",
+        name: "authSignIn",
+      },
+    },
+  },
 };

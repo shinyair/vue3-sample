@@ -7,6 +7,9 @@ import ErrorPage from "@/views/ErrorPage.vue";
 import ForbiddenPage from "@/views/ForbiddenPage.vue";
 import NotFoundPage from "@/views/NotFoundPage.vue";
 
+import AuthPage from "@/views/AuthPage.vue";
+import SignInPage from "@/views/auth/SignInPage.vue";
+
 export const routes = [
   {
     path: PATHS.home.path,
@@ -27,6 +30,17 @@ export const routes = [
     path: PATHS.notFound.path,
     name: PATHS.notFound.name,
     component: NotFoundPage,
+  },
+  {
+    path: PATHS.auth.path,
+    component: AuthPage,
+    children: [
+      {
+        path: PATHS.auth.children.signIn.path,
+        name: PATHS.auth.children.signIn.name,
+        component: SignInPage,
+      },
+    ],
   },
   {
     path: "/:pathMatch(.*)*",
