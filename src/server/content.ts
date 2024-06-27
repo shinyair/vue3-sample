@@ -1,8 +1,9 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-import { Request } from "miragejs";
+import { Request, Response } from "miragejs";
 import { AnyRegistry, AnyResponse } from "miragejs/-types";
 import Schema from "miragejs/orm/schema";
 
+import { parseAuthorizationHeader } from "@/server/jwt";
 import { sleep } from "@/server/time";
 
 export const DATA_PRODUCTS = [
@@ -42,12 +43,18 @@ export const getProduct = async (
   schema: Schema<AnyRegistry>,
   request: Request,
 ): Promise<AnyResponse> => {
-  console.log(request.requestHeaders.Authorization);
+  const claim = parseAuthorizationHeader(request.requestHeaders.Authorization);
+  if (!claim) {
+    return new Response(401);
+  }
   await sleep(1000);
   const productId = request.params.id;
   const product = (schema as any).findBy(productSchemaType, {
     id: productId,
   });
+  if (product.attrs.creatorId !== claim.email) {
+    return new Response(403);
+  }
   return product ? product.attrs : "";
 };
 
@@ -55,9 +62,14 @@ export const getAllowedProducts = async (
   schema: Schema<AnyRegistry>,
   request: Request,
 ): Promise<AnyResponse> => {
-  console.log(request.requestHeaders.Authorization);
+  const claim = parseAuthorizationHeader(request.requestHeaders.Authorization);
+  if (!claim) {
+    return new Response(401);
+  }
   await sleep(3000);
-  const products = (schema as any).all(productSchemaType);
+  const products = (schema as any).where(productSchemaType, {
+    creatorId: claim.email,
+  });
   return products ? products.models : [];
 };
 
@@ -81,7 +93,10 @@ export const getShop = async (
   schema: Schema<AnyRegistry>,
   request: Request,
 ): Promise<AnyResponse> => {
-  console.log(request.requestHeaders.Authorization);
+  const claim = parseAuthorizationHeader(request.requestHeaders.Authorization);
+  if (!claim) {
+    return new Response(401);
+  }
   await sleep(1000);
   const shopId = request.params.id;
   const shop = (schema as any).findBy(shopSchemaType, {
@@ -94,7 +109,10 @@ export const getAllowedShops = async (
   schema: Schema<AnyRegistry>,
   request: Request,
 ): Promise<AnyResponse> => {
-  console.log(request.requestHeaders.Authorization);
+  const claim = parseAuthorizationHeader(request.requestHeaders.Authorization);
+  if (!claim) {
+    return new Response(401);
+  }
   await sleep(3000);
   const shops = (schema as any).all(shopSchemaType);
   return shops ? shops.models : [];

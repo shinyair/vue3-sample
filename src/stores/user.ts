@@ -9,6 +9,8 @@ export interface User {
   email: string;
   name?: string;
   avatar?: string;
+  isFullPermission: boolean;
+  permissions: string[];
 }
 
 const getUser = () => {
@@ -32,6 +34,15 @@ export const useUserStore = defineStore("user", () => {
   const isSignedIn = computed(() => {
     return !!user.value;
   });
+  const hasPermission = (requiredPermission: string) => {
+    if (!user.value) {
+      return false;
+    }
+    if (user.value.isFullPermission) {
+      return true;
+    }
+    return user.value.permissions.includes(requiredPermission);
+  };
   const signIn = async (email: string, password: string) => {
     const response = await apiSignIn(email, password);
     if (response.failureResponse) {
@@ -43,6 +54,8 @@ export const useUserStore = defineStore("user", () => {
         name: response.sucResponse.user.name,
         email: response.sucResponse.user.email,
         avatar: response.sucResponse.user.avatar,
+        isFullPermission: response.sucResponse.permission.isFullPermission,
+        permissions: response.sucResponse.permission.permitted,
       };
       setUser(JSON.stringify(user.value));
     }
@@ -53,5 +66,5 @@ export const useUserStore = defineStore("user", () => {
     clearUser();
     clearJWT();
   };
-  return { user, userId, isSignedIn, signIn, signOut };
+  return { user, userId, isSignedIn, hasPermission, signIn, signOut };
 });

@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 
 import { PATHS } from "@/routes/path";
+import { PERMISSIONS } from "@/constants/permission";
 
 import HomePage from "@/views/HomePage.vue";
 import ErrorPage from "@/views/ErrorPage.vue";
@@ -57,26 +58,46 @@ export const routes = [
         path: PATHS.content.children.dashboard.path,
         name: PATHS.content.children.dashboard.name,
         component: DashboardPage,
+        meta: {
+          requiresAuth: true,
+          requiredPermission: PERMISSIONS.CONTENT.DASHBOARD.READ,
+        },
       },
       {
         path: PATHS.content.children.explore.path,
         name: PATHS.content.children.explore.name,
         component: ExplorePage,
+        meta: {
+          requiresAuth: true,
+          requiredPermission: PERMISSIONS.CONTENT.EXPLORE.READ,
+        },
       },
       {
         path: PATHS.content.children.product.path,
         name: PATHS.content.children.product.name,
         component: ProductPage,
+        meta: {
+          requiresAuth: true,
+          requiredPermission: PERMISSIONS.CONTENT.PRODUCT.READ,
+        },
       },
       {
         path: PATHS.content.children.shop.path,
         name: PATHS.content.children.shop.name,
         component: ShopPage,
+        meta: {
+          requiresAuth: true,
+          requiredPermission: PERMISSIONS.CONTENT.SHOP.READ,
+        },
       },
       {
         path: PATHS.content.children.settings.path,
         name: PATHS.content.children.settings.name,
         component: SettingsPage,
+        meta: {
+          requiresAuth: true,
+          requiredPermission: PERMISSIONS.CONTENT.SETTINGS.WRITE,
+        },
       },
     ],
   },

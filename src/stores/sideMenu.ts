@@ -1,9 +1,12 @@
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { defineStore } from "pinia";
+import axios, { AxiosError } from "axios";
+import { useEmitterStore } from "@/stores/emitter";
 import { Product, useProductStore } from "@/stores/product";
 import { Shop, useShopStore } from "@/stores/shop";
 import { PATHS } from "@/routes";
+import { SESSION_EXPIRED } from "@/constants/event";
 
 export interface Menu {
   key: string;
@@ -144,6 +147,7 @@ export const useSideMenuStore = defineStore("sideMenu", () => {
   // hooks
   const route = useRoute();
   const router = useRouter();
+  const emitterStore = useEmitterStore();
   const productStore = useProductStore();
   const shopStore = useShopStore();
   // ref
@@ -164,7 +168,19 @@ export const useSideMenuStore = defineStore("sideMenu", () => {
       );
     } catch (err) {
       menus.value = getAllowedMenus(MENUS, [], []);
-      router.push({ name: PATHS.error.name });
+      if (!axios.isAxiosError(err)) {
+        router.push({ name: PATHS.error.name });
+        return;
+      }
+      const errResponse = (err as AxiosError).response;
+      const status = errResponse ? errResponse.status : -1;
+      switch (status) {
+        case 401:
+          emitterStore.emitter.emit(SESSION_EXPIRED);
+          break;
+        default:
+          router.push({ name: PATHS.error.name });
+      }
     }
     activeMenu.value = getMenuByPath(route.path, menus.value);
     activeMenus.value = activeMenu.value
