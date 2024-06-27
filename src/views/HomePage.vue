@@ -1,13 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import FullLayout from "@/components/layouts/FullLayout.vue";
+</script>
 
 <template>
-  <div
-    class="w-full h-full flex flex-col justify-start items-start overflow-hidden"
-  >
-    <el-scrollbar class="w-full grow">
-      {{ $t("common.title") }}
-    </el-scrollbar>
-  </div>
+  <FullLayout>
+    <div class="w-full grow flex flex-col justify-center items-center">
+      <div>{{ $t("home.hello") }}</div>
+    </div>
+  </FullLayout>
 </template>
 
 <style scoped lang="scss"></style>
