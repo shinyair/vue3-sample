@@ -6,4 +6,7 @@ export default {
       en: "English",
     },
   },
+  home: {
+    hello: "你好呀",
+  },
 };
