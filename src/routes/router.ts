@@ -10,6 +10,13 @@ import NotFoundPage from "@/views/NotFoundPage.vue";
 import AuthPage from "@/views/AuthPage.vue";
 import SignInPage from "@/views/auth/SignInPage.vue";
 
+import ContentPage from "@/views/ContentPage.vue";
+import DashboardPage from "@/views/content/DashboardPage.vue";
+import ExplorePage from "@/views/content/ExplorePage.vue";
+import ProductPage from "@/views/content/ProductPage.vue";
+import ShopPage from "@/views/content/ShopPage.vue";
+import SettingsPage from "@/views/content/SettingsPage.vue";
+
 export const routes = [
   {
     path: PATHS.home.path,
@@ -39,6 +46,37 @@ export const routes = [
         path: PATHS.auth.children.signIn.path,
         name: PATHS.auth.children.signIn.name,
         component: SignInPage,
+      },
+    ],
+  },
+  {
+    path: PATHS.content.path,
+    component: ContentPage,
+    children: [
+      {
+        path: PATHS.content.children.dashboard.path,
+        name: PATHS.content.children.dashboard.name,
+        component: DashboardPage,
+      },
+      {
+        path: PATHS.content.children.explore.path,
+        name: PATHS.content.children.explore.name,
+        component: ExplorePage,
+      },
+      {
+        path: PATHS.content.children.product.path,
+        name: PATHS.content.children.product.name,
+        component: ProductPage,
+      },
+      {
+        path: PATHS.content.children.shop.path,
+        name: PATHS.content.children.shop.name,
+        component: ShopPage,
+      },
+      {
+        path: PATHS.content.children.settings.path,
+        name: PATHS.content.children.settings.name,
+        component: SettingsPage,
       },
     ],
   },

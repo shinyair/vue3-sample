@@ -5,8 +5,11 @@ export default {
       zh: "简体中文",
       en: "English",
     },
+    unknown: "未知",
+    empty: "什么都没有",
   },
   home: {
+    title: "主页",
     hello: "你好呀",
   },
   auth: {
@@ -17,6 +20,14 @@ export default {
       wrong_email_password: "用户名/密码错误",
       unknown: "未知错误",
     },
+  },
+  content: {
+    title: "内容页面",
+    dashboard: "仪表盘",
+    explore: "探索",
+    products: "产品",
+    shops: "店铺",
+    settings: "设定",
   },
   page: {
     error: "500",

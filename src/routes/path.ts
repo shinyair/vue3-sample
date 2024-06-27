@@ -24,4 +24,29 @@ export const PATHS = {
       },
     },
   },
+  content: {
+    path: "/content",
+    children: {
+      dashboard: {
+        path: "dashboard",
+        name: "contentDashboard",
+      },
+      explore: {
+        path: "explore",
+        name: "contentExplore",
+      },
+      product: {
+        path: "products/:id",
+        name: "contentProduct",
+      },
+      shop: {
+        path: "shops/:id",
+        name: "contentShop",
+      },
+      settings: {
+        path: "settings",
+        name: "contentSettings",
+      },
+    },
+  },
 };
