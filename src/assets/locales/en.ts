@@ -34,4 +34,9 @@ export default {
     forbidden: "Forbidden",
     notFound: "Not Found",
   },
+  error: {
+    load: {
+      failedToLoadData: "Failed to load data.",
+    },
+  },
 };

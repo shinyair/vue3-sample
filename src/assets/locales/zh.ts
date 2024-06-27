@@ -34,4 +34,9 @@ export default {
     forbidden: "403",
     notFound: "404",
   },
+  error: {
+    load: {
+      failedToLoadData: "数据加载失败。",
+    },
+  },
 };
