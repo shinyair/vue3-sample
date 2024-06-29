@@ -2,27 +2,29 @@
 
 This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-* template language: Vue 3 in TypeScript
-* frontend tooling: Vite
-* package management: yarn v2
-* linter: ESLint
-* formatter: Prettier
-* internationalization: i18n
-* component library: Element Plus (Element UI for Vue 3)
-* css framework: Tailwind CSS
-* vue store framework: Pinia
-* ajax client: Axios HTTP
-* api mocking library: Mirage JS
-* router framework: Vue Router (vue-router)
-* event emitter: mitt (Event Bus - which is included in the `vue` is removed since Vue 3)
+* template language: [Vue 3](https://vuejs.org/) in [TypeScript](https://www.typescriptlang.org/)
+* frontend tooling: [Vite](https://vitejs.dev/)
+* package management: [yarn](https://yarnpkg.com/) v2
+* linter: [ESLint](https://eslint.org/)
+* formatter: [Prettier](https://prettier.io/)
+* internationalization: i18n [vue-i18n](https://vue-i18n.intlify.dev/)
+* component library: [Element Plus](https://element-plus.org/en-US/) (Element UI for Vue 3)
+* css framework: [Tailwind CSS](https://tailwindcss.com/)
+* vue store framework: [Pinia](https://pinia.vuejs.org/)
+* ajax client: [Axios HTTP](https://axios-http.com/)
+* api mocking library: [Mirage JS](https://miragejs.com/)
+* router framework: [Vue Router](https://router.vuejs.org/) (vue-router)
+* event emitter: [mitt](https://github.com/developit/mitt) (Event Bus - which is included in the `vue` - is removed since Vue 3)
+* unit test: [Jest](https://jestjs.io/) with [Vue Test Utils](https://test-utils.vuejs.org/)
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+A sample project of Vue 3 + Vite + TypeScript with a step-by-step guide to create and integrate with necessary libraries.
 
 ## Prerequisites
 
-* node, npm: *
+* node: 14+
+* npm: *
 * yarn: *
 * recommended VSCode extensions:
   * Vue - Official
@@ -129,6 +131,28 @@ yarn run lint
 * `mitt` and `tiny-emitter` are suggested by `vue` to implement the Event Bus pattern in Vue 3. [Implement Event Bus in Vue 3](https://v3-migration.vuejs.org/breaking-changes/events-api#event-bus)
 * run `yarn add mitt`
 * provide  `emitter` in vue app and inject it in the components. [Provide / Inject](https://v3-migration.vuejs.org/breaking-changes/global-api#provide-inject)
+
+### Jest
+* run `yarn add -D jest jest-environment-jsdom @vue/test-utils @vue/vue3-jest ts-jest babel-jest @babel/preset-env @babel/core  babel-core@bridge`
+  * `jest`: install `jest` itself
+  * `jest-environment-jsdom`: allow `jest` to run in browser environment with browser objects like `document` 
+  * `@vue/test-utils`: [Vue Test Utils](https://test-utils.vuejs.org/guide/) is a set of utility functions aimed to simplify testing vue components
+  * `@vue/vue3-jest`: `jest` transformer for vue components
+  * `ts-jest`: support typescript in `jest`
+  * `babel-jest`: support using `import` instead of `require` in javascript
+  * `@babel/preset-env`: support using `import` instead of `require` in javascript
+  * `@babel/core`: required by `@babel/preset-env`
+  * `babel-core@bridge`: required by `@vue/vue3-jest`
+* add config file `jest.config.js` for `jest` and config it according to the blogs in `refs`
+* add config file `babel.config.cjs` for `babel` and config it according to the blogs in `refs`
+* recommended to write `jest` tests in javascript to run the tests easier
+* options:
+  * install `jest-transform-stub` and config stubs for resource files in `jest.config.js`
+  * config mocks for dependencies
+* refs
+  * [Vue 3 component testing with Jest](https://blog.canopas.com/vue-3-component-testing-with-jest-8b80a8a8946b)
+  * [Integrating Jest Testing into an Existing Vue 3 Project with ViteJs](https://dev.to/integridsolutions/integrating-jest-testing-into-an-existing-vue-3-project-with-vitejs-3m13)
+  * [Vue 3 Starter with Vite + Typescript + Jest + ESLint + Prettier](https://github.com/santicros/vue3-vite-typescript-jest)
 
 ## Help
 
