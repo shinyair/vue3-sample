@@ -3,11 +3,11 @@ import { createPinia } from "pinia";
 import mitt from "mitt";
 import ElementPlus from "element-plus";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
-import App from "./App.vue";
-import { i18n } from "./i18n";
-import { router } from "./routes";
-import "./index.scss";
-import "./debug";
+import App from "@/App.vue";
+import { i18n } from "@/i18n";
+import { router } from "@/routes";
+import "@/index.scss";
+import "@/debug";
 
 const pinia = createPinia();
 const emitter = mitt();

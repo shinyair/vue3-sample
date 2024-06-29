@@ -1,5 +1,5 @@
-import * as env from "./constants/env";
-import { makeServer } from "./server";
+import * as env from "@/constants/env";
+import { makeServer } from "@/server";
 
 const printDevEnvVars = () => {
   if (!env.IS_DEV) {

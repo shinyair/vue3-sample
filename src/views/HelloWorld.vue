@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import LanguageSelector from "../components/common/LanguageSelector.vue";
-import ThemeSelector from "../components/common/ThemeSelector.vue";
+import LanguageSelector from "@/components/common/LanguageSelector.vue";
+import ThemeSelector from "@/components/common/ThemeSelector.vue";
 
 const props = defineProps<{
   msg: string;

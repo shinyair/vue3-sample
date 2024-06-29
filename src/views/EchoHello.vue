@@ -2,9 +2,9 @@
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
-import { record } from "../apis/echo";
-import LanguageSelector from "../components/common/LanguageSelector.vue";
-import ThemeSelector from "../components/common/ThemeSelector.vue";
+import { record } from "@/apis/echo";
+import LanguageSelector from "@/components/common/LanguageSelector.vue";
+import ThemeSelector from "@/components/common/ThemeSelector.vue";
 
 const route = useRoute();
 const echoMessage = ref("");

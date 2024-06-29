@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import { changeLanguage } from "../i18n";
+import { changeLanguage } from "@/i18n";
 
 const LOCALE_KEY = "locale";
 const DEFAULT_LOCALE = "en";

@@ -1,6 +1,6 @@
 import { createServer, Model } from "miragejs";
 
-import * as echo from "./echo";
+import * as echo from "@/server/echo";
 
 const DB_KEY = "migratejs-db";
 

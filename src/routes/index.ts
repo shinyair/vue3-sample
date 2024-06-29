@@ -1,7 +1,7 @@
 import { createMemoryHistory, createRouter } from "vue-router";
 
-import EchoHello from "../views/EchoHello.vue";
-import HelloWorld from "../views/HelloWorld.vue";
+import EchoHello from "@/views/EchoHello.vue";
+import HelloWorld from "@/views/HelloWorld.vue";
 
 const routes = [
   {
