@@ -49,13 +49,64 @@ yarn run dev
 
 ### Project Structure
 
-// TODO:
+```
+project
+├── docs # documentation
+├── public # public static resources of the frontend
+├── src
+|    ├── apis # api clients based on axois
+|    ├── assets # resources
+|    |    └── locales # i18n text resources
+|    ├── components
+|    ├── constants
+|    ├── hooks # customized reactive hooks
+|    ├── routes # for vue-router
+|    ├── server # for api mocking
+|    ├── stores # pinia stores, handle biz logic
+|    ├── utils
+|    ├── views # pages
+|    ├── App.vue # root component of vue app
+|    ├── debug.ts # debug codes
+|    ├── i18n.ts # for vue-i18n
+|    ├── index.scss # root scss file
+|    └── main.ts # entrance of vue
+├── tests # test code folder
+|    ├── unit # unit tests
+|    └── e2e # e2e automated testing 
+├── .env.* # env variable files
+├── .gitignore
+├── .yarnrc.yml # yarn config file
+├── babel.config.cjs # babel config file (introduced by jest)
+├── eslint.config.js # eslint config file
+├── index.html # entrance html page of frontend
+├── jest.config.js # eslint config file
+├── package.json # package management file
+├── playwright.config.ts # eslint config file
+├── postcss.config.js # postcss config file (introduced by tailwind css)
+├── tailwind.config.js # tailwind css config file
+├── tsconfig.json # typescript config file
+├── tsconfig.node.json # typescript config file
+├── vite.config.ts # vite config file
+├── yarn.lock # package management file
+├── LICENSE.md
+└── README.md
+```
 
 ## Development
 
 ### Develop
 
-// TODO:
+* add components and page in src
+* run and test
+
+```
+# bash
+# run with the default development mode
+yarn run dev
+# run with a specified mode to apply the corresponding env file
+# such as: yarn run dev --mode test, which applies `.env.test` env file
+yarn run dev --mode {mode}
+```
 
 ### Lint
 
@@ -66,7 +117,13 @@ yarn run lint
 
 ### Test
 
-// TODO:
+```
+# bash
+yarn run test:unit
+yarn run test:e2e:install
+yarn run test:e2e
+yarn run test:e2e:report
+```
 
 ## Create a Vue project with an existing empty GitHub repo step by step
 
@@ -163,14 +220,11 @@ yarn run lint
 
 ## Help
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
+// TODO: Any advise for common problems or issues.
 
 ## Authors
 
-Contributors names and contact info
+// TODO: Contributors names and contact info
 
 ## Version History
 
