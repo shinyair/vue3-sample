@@ -16,6 +16,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 * router framework: [Vue Router](https://router.vuejs.org/) (vue-router)
 * event emitter: [mitt](https://github.com/developit/mitt) (Event Bus - which is included in the `vue` - is removed since Vue 3)
 * unit test: [Jest](https://jestjs.io/) with [Vue Test Utils](https://test-utils.vuejs.org/)
+* e2e test: [Playwright](https://playwright.dev/)
 
 ## Description
 
@@ -23,7 +24,7 @@ A sample project of Vue 3 + Vite + TypeScript with a step-by-step guide to creat
 
 ## Prerequisites
 
-* node: 14+
+* node: 18+
 * npm: *
 * yarn: *
 * recommended VSCode extensions:
@@ -153,6 +154,12 @@ yarn run lint
   * [Vue 3 component testing with Jest](https://blog.canopas.com/vue-3-component-testing-with-jest-8b80a8a8946b)
   * [Integrating Jest Testing into an Existing Vue 3 Project with ViteJs](https://dev.to/integridsolutions/integrating-jest-testing-into-an-existing-vue-3-project-with-vitejs-3m13)
   * [Vue 3 Starter with Vite + Typescript + Jest + ESLint + Prettier](https://github.com/santicros/vue3-vite-typescript-jest)
+
+### Playwright
+* run `yarn create playwright` to [install and config playwright](https://playwright.dev/docs/intro). It is able to add `github` actions for `playwright` at the same time
+* update `playwright.config.ts` if necessary
+* refs
+  * [Playwright vs Puppeteer vs Cypress vs Selenium (E2E testing)](https://betterstack.com/community/comparisons/playwright-cypress-puppeteer-selenium-comparison/)
 
 ## Help
 

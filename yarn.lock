@@ -2073,6 +2073,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@playwright/test@npm:^1.45.0":
+  version: 1.45.0
+  resolution: "@playwright/test@npm:1.45.0"
+  dependencies:
+    playwright: "npm:1.45.0"
+  bin:
+    playwright: cli.js
+  checksum: 10c0/bfb3cdcca2df5ef7a2a380cc189a5ed905bef9551a2b84071c42b620b77e32a2cffdb74841957bb5e519559ed26b42a7777d09dc897a6aee67258cc041e705f9
+  languageName: node
+  linkType: hard
+
 "@popperjs/core@npm:@sxzz/popperjs-es@^2.11.7":
   version: 2.11.7
   resolution: "@sxzz/popperjs-es@npm:2.11.7"
@@ -2340,7 +2351,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
+"@types/node@npm:*, @types/node@npm:^20.14.9":
   version: 20.14.9
   resolution: "@types/node@npm:20.14.9"
   dependencies:
@@ -4354,12 +4365,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fsevents@npm:2.3.2":
+  version: 2.3.2
+  resolution: "fsevents@npm:2.3.2"
+  dependencies:
+    node-gyp: "npm:latest"
+  checksum: 10c0/be78a3efa3e181cda3cf7a4637cb527bcebb0bd0ea0440105a3bb45b86f9245b307dc10a2507e8f4498a7d4ec349d1910f4d73e4d4495b16103106e07eee735b
+  conditions: os=darwin
+  languageName: node
+  linkType: hard
+
 "fsevents@npm:^2.3.2, fsevents@npm:~2.3.2, fsevents@npm:~2.3.3":
   version: 2.3.3
   resolution: "fsevents@npm:2.3.3"
   dependencies:
     node-gyp: "npm:latest"
   checksum: 10c0/a1f0c44595123ed717febbc478aa952e47adfc28e2092be66b8ab1635147254ca6cfe1df792a8997f22716d4cbafc73309899ff7bfac2ac3ad8cf2e4ecc3ec60
+  conditions: os=darwin
+  languageName: node
+  linkType: hard
+
+"fsevents@patch:fsevents@npm%3A2.3.2#optional!builtin<compat/fsevents>":
+  version: 2.3.2
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#optional!builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
+  dependencies:
+    node-gyp: "npm:latest"
   conditions: os=darwin
   languageName: node
   linkType: hard
@@ -6315,6 +6345,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"playwright-core@npm:1.45.0":
+  version: 1.45.0
+  resolution: "playwright-core@npm:1.45.0"
+  bin:
+    playwright-core: cli.js
+  checksum: 10c0/5c3c205ad6d52c674fb3a91981a2068b17e7d02350c868cb3bc51e0c236df1b5da7c123ebdb6c22c66c8182965d2bba0831fa272a8a388c4e545eac5b3efa501
+  languageName: node
+  linkType: hard
+
+"playwright@npm:1.45.0":
+  version: 1.45.0
+  resolution: "playwright@npm:1.45.0"
+  dependencies:
+    fsevents: "npm:2.3.2"
+    playwright-core: "npm:1.45.0"
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    playwright: cli.js
+  checksum: 10c0/dbb1c3fe127650bd4b96a84b5271fbb56eea298bc87fa43a16b5054a4f011e00edd9a1a5e769efe4776a7c60d2a87c280543930a19cd12846d3d1e266198d4df
+  languageName: node
+  linkType: hard
+
 "postcss-import@npm:^15.1.0":
   version: 15.1.0
   resolution: "postcss-import@npm:15.1.0"
@@ -7628,8 +7682,10 @@ __metadata:
     "@babel/preset-env": "npm:^7.24.7"
     "@element-plus/icons-vue": "npm:^2.3.1"
     "@eslint/js": "npm:^9.4.0"
+    "@playwright/test": "npm:^1.45.0"
     "@types/babel__core": "npm:^7"
     "@types/babel__preset-env": "npm:^7"
+    "@types/node": "npm:^20.14.9"
     "@typescript-eslint/parser": "npm:^7.13.0"
     "@vitejs/plugin-vue": "npm:^5.0.4"
     "@vue/test-utils": "npm:^2.4.6"
