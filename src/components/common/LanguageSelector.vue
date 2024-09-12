@@ -1,30 +1,26 @@
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import { useLocaleStore } from "@/stores/locale";
+import { storeToRefs } from "pinia";
+import { useLanguageStore } from "@/stores/language";
 
-// props
-const props = defineProps<{
-  size?: "" | "large" | "default" | "small";
-}>();
 // hooks
-const { locale, availableLocales } = useI18n();
-const { changeLocale } = useLocaleStore();
+const languageStore = useLanguageStore();
+const { language, languages } = storeToRefs(languageStore);
 // methods
-const onLocaleChange = (locale: string) => {
-  changeLocale(locale);
+const onLanguageChange = (lang: string) => {
+  languageStore.changeLanguage(lang);
 };
 </script>
 
 <template>
-  <div class="flex flex-row justify-start items-center mx-2 my-2 w-24">
+  <div class="flex flex-row justify-start items-center w-28">
     <el-select
-      v-model:model-value="locale"
       class="w-full"
-      :size="props.size"
-      @change="onLocaleChange"
+      size="default"
+      :model-value="language"
+      @change="onLanguageChange"
     >
       <el-option
-        v-for="item in availableLocales"
+        v-for="item in languages"
         :key="item"
         :label="$t(`common.languages.${item}`)"
         :value="item"

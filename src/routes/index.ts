@@ -1,23 +1,7 @@
-import { createMemoryHistory, createRouter } from "vue-router";
+import "@/routes/meta";
+import "@/routes/path";
+import "@/routes/router";
+import "@/routes/interceptor";
 
-import EchoHello from "@/views/EchoHello.vue";
-import HelloWorld from "@/views/HelloWorld.vue";
-
-const routes = [
-  {
-    path: "/",
-    component: HelloWorld,
-    props: {
-      msg: "Vite + Vue",
-    },
-  },
-  {
-    path: "/echohello",
-    component: EchoHello,
-  },
-];
-
-export const router = createRouter({
-  history: createMemoryHistory(),
-  routes,
-});
+export * from "@/routes/path";
+export * from "@/routes/router";

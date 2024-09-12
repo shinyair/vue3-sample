@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { useDark, useToggle } from "@vueuse/core";
+import { storeToRefs } from "pinia";
 import { Moon, Sunny } from "@element-plus/icons-vue";
+import { THEMES, useThemeStore } from "@/stores/theme";
 
-// props
-const props = defineProps<{
-  size?: "" | "large" | "default" | "small";
-}>();
 // hooks
-const isDark = useDark({
-  valueDark: "dark",
-  valueLight: "light",
-});
-const toggleDark = useToggle(isDark);
+const themeStore = useThemeStore();
+const { theme } = storeToRefs(themeStore);
 // methods
 const toggleTheme = () => {
-  toggleDark();
+  if (theme.value === THEMES.dark) {
+    themeStore.changeTheme(THEMES.light);
+  } else {
+    themeStore.changeTheme(THEMES.dark);
+  }
 };
 </script>
 
 <template>
-  <div class="flex flex-row justify-start items-center mx-2 my-2">
+  <div class="flex flex-row justify-start items-center">
     <el-switch
-      :model-value="isDark"
       inline-prompt
-      :size="props.size"
+      size="large"
+      :model-value="theme"
+      :active-value="THEMES.dark"
+      :inactive-value="THEMES.light"
       :active-icon="Moon"
       :inactive-icon="Sunny"
       @change="toggleTheme"
