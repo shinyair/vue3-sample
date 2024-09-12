@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "lint": "eslint *.config.{js,ts} src/**/*.{ts,vue} tests/**/*.{js,ts} --report-unused-disable-directives --max-warnings 0 --fix",
-    "test:unit": "jest",
+    "lint": "eslint *.config.{js,ts} {src,tests}/**/*.{js,ts,vue} --report-unused-disable-directives --max-warnings 0 --fix",
+    "test:unit": "jest --passWithNoTests",
     "test:e2e:install": "playwright install --with-deps",
-    "test:e2e": "playwright test",
+    "test:e2e": "playwright test --pass-with-no-tests",
     "test:e2e:report": "playwright show-report",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
