@@ -1,0 +1,12 @@
+*.swp
+__pycache__
+.pytest_cache
+.venv
+*.egg-info
+
+# npm
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
