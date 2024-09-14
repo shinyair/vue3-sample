@@ -17,6 +17,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 * event emitter: [mitt](https://github.com/developit/mitt) (Event Bus - which is included in the `vue` - is removed since Vue 3)
 * unit test: [Jest](https://jestjs.io/) with [Vue Test Utils](https://test-utils.vuejs.org/)
 * e2e test: [Playwright](https://playwright.dev/)
+* ci workflow: [GitHub Actions](https://docs.github.com/en/actions)
 
 ## Description
 
@@ -51,6 +52,8 @@ yarn run dev
 
 ```
 project
+├── .github/workflows # github actions for ci
+├── .yarn # yarn package management
 ├── docs # documentation
 ├── public # public static resources of the frontend
 ├── src
