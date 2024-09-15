@@ -14,6 +14,9 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
+    - uses: actions/setup-python@v5
+      with:
+        python-version: 3.9
     - name: Install dependencies
       run: npm install -g yarn && yarn
     - name: Lint source code
@@ -28,6 +31,23 @@ jobs:
       run: yarn run test:e2e
     - name: Run build
       run: yarn run build
+    - name: Install pipenv
+      run: pip install pipenv
+    - name: Install infra
+      working-directory: ./infra
+      run: pipenv install --dev
+    - name: Lint infra source code
+      working-directory: ./infra
+      run: pipenv run lint
+    - name: Format infra source code
+      working-directory: ./infra
+      run: pipenv run format
+    - name: Check if any file is modified
+      working-directory: ./infra
+      run: git diff --name-only --exit-code
+    - name: Run infra test cases
+      working-directory: ./infra
+      run: pipenv run test
     # - uses: actions/upload-artifact@v4
     #   if: always()
     #   with:
