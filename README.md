@@ -64,6 +64,23 @@ project
 ├── .yarn # yarn package management
 ├── docs # documentation
 ├── infra # infrastracture as code
+|    ├── buildspecs # aws codebuild buildspec files to run in codebuild projects as actions in codepipelines
+|    ├── scripts # helper scripts
+|    ├── src # aws cdk python source files
+|    ├── tests # test cases
+|    ├── .env.* # env variable files
+|    ├── .gitignore # git ignore configs for the aws cdk project
+|    ├── .pep8 # config for autopep8, a python formatter
+|    ├── .pylintrc # config for pylint, a python linter
+|    ├── cdk.json # cdk configs
+|    ├── package-lock.json # npm package management, to manage aws cdk as a local dependency
+|    ├── package.json # npm package management, to manage aws cdk as a local dependency
+|    ├── Pipfile # python package management, to manage dependencies of the cdk project
+|    ├── Pipfile.lock # python package management, to manage dependencies of the cdk project
+|    ├── pytest.ini # pytest configs
+|    ├── README.md
+|    ├── requirements-dev.txt # exported requirements file with dev dependencies
+|    └── requirements.txt # exported requirements file without dev dependencies
 ├── public # public static resources of the frontend
 ├── src
 |    ├── apis # api clients based on axois
@@ -139,7 +156,18 @@ yarn run test:e2e:report
 
 ## CI/CD
 
-// TODO:
+### CI
+
+Implement by GitHub actions.
+
+### CD
+
+Implement by AWS CodePipeline + AWS CodeBuild Project with AWS CloudFormation.
+
+* source: github; need to connect github and aws manually in aws management console
+* build: define resources by `aws cdk`; build cloudformation templates from defined resources by `aws cdk` in codebuild projects
+* deploy: deploy cloudformation templates by codepipeline
+* the cd pipeline must be manually deploy from local or by a jenkins job on jenkins server at the first time. check more details here: [Continuous integration and delivery (CI/CD) using CDK Pipelines](https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html)
 
 ## Create a Vue project with an existing empty GitHub repo step by step
 
