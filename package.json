@@ -10,7 +10,11 @@
     "test:e2e:install": "playwright install --with-deps",
     "test:e2e": "playwright test --pass-with-no-tests",
     "test:e2e:report": "playwright show-report",
-    "build": "vue-tsc && vite build",
+    "build": "vue-tsc && vite build --debug",
+    "build:dev": "vue-tsc && vite build --mode dev",
+    "build:test": "vue-tsc && vite build --mode test",
+    "build:staging": "vue-tsc && vite build --mode staging",
+    "build:prod": "vue-tsc && vite build --mode prod",
     "preview": "vite preview"
   },
   "dependencies": {

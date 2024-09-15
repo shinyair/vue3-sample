@@ -1,0 +1,44 @@
+version: 0.2
+
+env:
+  shell: /bin/sh
+  variables:
+    PIPENV_DONT_LOAD_ENV: 1
+
+phases:
+  install:
+    on-failure: ABORT
+    runtime-versions:
+      nodejs: 18
+      python: 3.9
+    commands:
+      - aws --version
+      - node --version
+      - npm --version
+      - yarn --version
+      - python --version
+      - pip --version
+      - echo "cdk version=$CDK_VERSION"
+      - npm install -g aws-cdk@$CDK_VERSION
+      - cdk --version
+
+  pre_build:
+    on-failure: ABORT
+    commands:
+      - echo "stage=$STAGE"
+
+  build:
+    on-failure: ABORT
+    commands:
+      - echo "build pipeline infra"
+      - cd infra
+      # install python dependencies by pip directly to improve the pipeline performance
+      - pip install -r requirements.txt
+      # run cdk commands by global cdk directly to improve the pipeline performance
+      # make sure the cdk in the current account/region is already bootstraped
+      # - cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
+      - cdk synth --app "python ./src/app_pipeline.py"
+
+artifacts:
+  files:
+    - infra/cdk.out/**/*

@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+aws-cdk-lib = "==2.158.0"
+constructs = "<11.0.0,>=10.0.0"
+python-dotenv = "==1.0.1"
+
+[dev-packages]
+pytest = "==8.3.3"
+pylint = "==3.2.7"
+autopep8 = "==2.3.1"
+
+[requires]
+python_version = "3.9"
+
+[scripts]
+format = "autopep8 --aggressive --aggressive -ivr src tests"
+lint = "pylint ./src"
+test = "pytest -v --capture=tee-sys tests"
+precommit = "bash -c 'pipenv run format && pipenv run lint'"

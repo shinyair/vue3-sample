@@ -17,6 +17,9 @@ This template should help get you started developing with Vue 3 and TypeScript i
 * event emitter: [mitt](https://github.com/developit/mitt) (Event Bus - which is included in the `vue` - is removed since Vue 3)
 * unit test: [Jest](https://jestjs.io/) with [Vue Test Utils](https://test-utils.vuejs.org/)
 * e2e test: [Playwright](https://playwright.dev/)
+* ci workflow: [GitHub Actions](https://docs.github.com/en/actions)
+* aws command line interface: [AWS CLI](https://aws.amazon.com/cli/)
+* aws infrastructure framework: [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/home.html) with `python` and `pipenv`
 
 ## Description
 
@@ -27,9 +30,15 @@ A sample project of Vue 3 + Vite + TypeScript with a step-by-step guide to creat
 * node: 18+
 * npm: *
 * yarn: *
+* aws cli: v2
+* python: 3.9
+* pip: *
+* pipenv: *
 * recommended VSCode extensions:
   * Vue - Official
   * JavaScript and TypeScript Nightly
+  * Python
+  * autoDocstring - Python Docstring Generator
 
 ## Getting Started
 
@@ -51,7 +60,27 @@ yarn run dev
 
 ```
 project
+├── .github/workflows # github actions for ci
+├── .yarn # yarn package management
 ├── docs # documentation
+├── infra # infrastracture as code
+|    ├── buildspecs # aws codebuild buildspec files to run in codebuild projects as actions in codepipelines
+|    ├── scripts # helper scripts
+|    ├── src # aws cdk python source files
+|    ├── tests # test cases
+|    ├── .env.* # env variable files
+|    ├── .gitignore # git ignore configs for the aws cdk project
+|    ├── .pep8 # config for autopep8, a python formatter
+|    ├── .pylintrc # config for pylint, a python linter
+|    ├── cdk.json # cdk configs
+|    ├── package-lock.json # npm package management, to manage aws cdk as a local dependency
+|    ├── package.json # npm package management, to manage aws cdk as a local dependency
+|    ├── Pipfile # python package management, to manage dependencies of the cdk project
+|    ├── Pipfile.lock # python package management, to manage dependencies of the cdk project
+|    ├── pytest.ini # pytest configs
+|    ├── README.md
+|    ├── requirements-dev.txt # exported requirements file with dev dependencies
+|    └── requirements.txt # exported requirements file without dev dependencies
 ├── public # public static resources of the frontend
 ├── src
 |    ├── apis # api clients based on axois
@@ -124,6 +153,21 @@ yarn run test:e2e:install
 yarn run test:e2e
 yarn run test:e2e:report
 ```
+
+## CI/CD
+
+### CI
+
+Implement by GitHub actions.
+
+### CD
+
+Implement by AWS CodePipeline + AWS CodeBuild Project with AWS CloudFormation.
+
+* source: github; need to connect github and aws manually in aws management console
+* build: define resources by `aws cdk`; build cloudformation templates from defined resources by `aws cdk` in codebuild projects
+* deploy: deploy cloudformation templates by codepipeline
+* the cd pipeline must be manually deploy from local or by a jenkins job on jenkins server at the first time. check more details here: [Continuous integration and delivery (CI/CD) using CDK Pipelines](https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html)
 
 ## Create a Vue project with an existing empty GitHub repo step by step
 
@@ -217,6 +261,37 @@ yarn run test:e2e:report
 * update `playwright.config.ts` if necessary
 * refs
   * [Playwright vs Puppeteer vs Cypress vs Selenium (E2E testing)](https://betterstack.com/community/comparisons/playwright-cypress-puppeteer-selenium-comparison/)
+
+### AWS CDK
+* run `mkdir infra`
+* run `npx aws-cdk init app --generate-only --language=python` under `infra` folder to create the `cdk` infra project
+* [optional] change `cdk` infra project structure
+  * rename generated `infra` subfolder as `src` and fix related `import`
+  * move `app.py` to `src` folder and edit `cdk.json` to run the moved `app.py`
+  * delete `source.bat`
+* use `pipenv` to manage python virtual env and dependencies instead of `venv` + `pip`
+  * run `pipenv shell --python 3.9`
+  * run `pipenv install -r requirements.txt`
+  * run `pipenv install -d -r requirements-dev.txt`
+  * run `pipenv install -d pylint` to install `pyliint` for linting `python` source code
+  * run `pylint --generate-rcfile > .pylintrc` to generate `pylint` configuration file and edit it
+  * run `pipenv install -d autopep8` to install `autopep8` for formatting `python` source code
+  * add a `.pep8` file to configure `autopipe8`
+  * fix the version of `pylint` and `autopep8` in `Pipfile`
+  * upgrade `pytest` to the latest version
+  * add a `pytest.ini` to configure `pytest`
+  * add the `[scripts]` in `Pipfile` to implement linting and formatting `python` source code
+  * run `pylint ./src` and `autopep8 --aggressive --aggressive -ivr src tests` by `pipenv shell` to fix issues
+  * generate new `requirements` files from the `Pipfile.lock`
+    * run `pipenv requirements > requirements.txt`
+    * run `pipenv requirements --dev > requirements-dev.txt`
+* manage `cdk` as a dependency instead of installing it globally
+  * run `npm init` to init a `npm` project
+  * run `npm install aws-cdk` to install `cdk`
+  * add `"cdk": "cd $INIT_CWD && cdk"` commands in `scripts` of `package.json` to run the local `cdk`
+  * edit `.gitignore` created by `cdk` to support manage `npm` project files
+* update aws cli session credentials by command `aws sts get-session-token`. make sure you've configured the aws cli profile on your local. check more details here: [get-session-token](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-session-token.html)
+* run `npm run cdk bootstrap -- --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess` to setup cdk toolkit stack. if you want to use a specified aws cdk/cli profile, add `profile` option in command, for example `npm run cdk bootstrap -- --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess --profile my_profile_name`
 
 ## Help
 
