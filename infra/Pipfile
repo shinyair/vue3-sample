@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 aws-cdk-lib = "==2.158.0"
 constructs = "<11.0.0,>=10.0.0"
+python-dotenv = "==1.0.1"
 
 [dev-packages]
 pytest = "==8.3.3"

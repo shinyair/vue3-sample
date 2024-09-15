@@ -3,6 +3,7 @@ __pycache__
 .pytest_cache
 .venv
 *.egg-info
+*.log
 
 # npm
 node_modules
