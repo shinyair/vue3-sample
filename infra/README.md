@@ -37,6 +37,68 @@ $ npm run cdk deploy -- --profile my_aws_profile
 ```
 
 
+## How to Develop
+
+### Install
+
+#### Install pipenv, npm and bootstrap cdk
+```
+$ pipenv install --dev
+$ npm install
+
+# bootstrap cdk
+
+# make sure you have issued a valid session credentials for your aws cli before running cdk commands
+# check ./scripts/aws_cli_token_generator.sh for helps
+
+# boostrap the cdk with the default aws cli profile
+bash ./scripts/aws_cdk_bootstrap.sh
+# boostrap the cdk with a specified aws cli profile
+bash ./scripts/aws_cdk_bootstrap.sh -p my_aws_profile
+```
+
+#### Configure local development .env file
+copy `.env` file and rename it as `.env.local`, then edit the environment variables as you like
+
+### Generate Cloudformation Templates
+Cloudformation Template files are saved in `cdk.out` folder
+
+```
+$ npm run cdk:clear
+# synthesize with the default aws cli profile
+$ npm run cdk:synth
+# synthesize with a specified aws cli profile
+$ npm run cdk:synth -- --profile my_aws_profile
+```
+
+### Deploy Cloudformation Templates from local
+You can deploy the generated `cdk.out` from local to AWS with following commands
+
+```
+# deploy with the default aws cli profile
+$ npm run cdk:deploy
+# deploy with a specified aws cli profile
+$ npm run cdk:deploy -- --profile my_aws_profile
+```
+
+### Deploy Cloudformation Templates by AWS CodePipeline
+Run the AWS CodePipeline for your target stage directly
+
+### Lint and Format
+```
+$ pipenv run lint
+$ pipenv run format
+
+# or just run 1 command to run both lint and format
+$ pipenv run precommit
+```
+
+### Test
+```
+$ pipenv run test
+```
+
+
 ## Useful commands
 
  * `cdk bootstrap`   deploy the cdk toolkit stack into your default AWS account/region
