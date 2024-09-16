@@ -6,12 +6,16 @@ import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import App from "@/App.vue";
 import { i18n } from "@/i18n";
 import { router } from "@/routes";
+import { createSentry } from "@/monitoring";
 import "@/index.scss";
 import "@/debug";
 
 const pinia = createPinia();
 const emitter = mitt();
 const app = createApp(App);
+
+createSentry(app, router);
+
 app.use(pinia);
 app.use(i18n);
 app.use(ElementPlus);

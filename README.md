@@ -20,6 +20,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 * ci workflow: [GitHub Actions](https://docs.github.com/en/actions)
 * aws command line interface: [AWS CLI](https://aws.amazon.com/cli/)
 * aws infrastructure framework: [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/home.html) with `python` and `pipenv`
+* monitoring framework: [Sentry](https://sentry.io/)
 
 ## Description
 
@@ -292,6 +293,14 @@ Implement by AWS CodePipeline + AWS CodeBuild Project with AWS CloudFormation.
   * edit `.gitignore` created by `cdk` to support manage `npm` project files
 * update aws cli session credentials by command `aws sts get-session-token`. make sure you've configured the aws cli profile on your local. check more details here: [get-session-token](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-session-token.html)
 * run `npm run cdk bootstrap -- --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess` to setup cdk toolkit stack. if you want to use a specified aws cdk/cli profile, add `profile` option in command, for example `npm run cdk bootstrap -- --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess --profile my_profile_name`
+
+### Sentry
+* run `yarn add @sentry/vue`
+* setup sentry acccording to [Sentry for VUE](https://docs.sentry.io/platforms/javascript/guides/vue/)
+* [optional] configure github actions to release source map to Sentry
+  * run `npx @sentry/wizard@latest -i sourcemaps`
+  * add secrets `SENTRY_ORG`, `SENTRY_PROJECT` and `SENTRY_AUTH_TOKEN` in `[your_repository] > Settings > Secrets and variables > Actions > Repository Secrets`
+  * add a github actions workflow to release source map to Sentry according to [Sentry Release](https://github.com/marketplace/actions/sentry-release#usage)
 
 ## Help
 
