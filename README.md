@@ -20,6 +20,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 * ci workflow: [GitHub Actions](https://docs.github.com/en/actions)
 * aws command line interface: [AWS CLI](https://aws.amazon.com/cli/)
 * aws infrastructure framework: [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/home.html) with `python` and `pipenv`
+* sensitive environment variable management: [Using secrets in GitHub Actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) and [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html)
 
 ## Description
 
@@ -292,6 +293,11 @@ Implement by AWS CodePipeline + AWS CodeBuild Project with AWS CloudFormation.
   * edit `.gitignore` created by `cdk` to support manage `npm` project files
 * update aws cli session credentials by command `aws sts get-session-token`. make sure you've configured the aws cli profile on your local. check more details here: [get-session-token](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-session-token.html)
 * run `npm run cdk bootstrap -- --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess` to setup cdk toolkit stack. if you want to use a specified aws cdk/cli profile, add `profile` option in command, for example `npm run cdk bootstrap -- --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess --profile my_profile_name`
+
+### Sensitive Environment Variable Management
+* issue and aws credentials for github to connect from github actions workflow to aws by aws cli
+* add sensitive environment variables as secrets in GitHub
+* add a github actions workflow to sync sensitive environment variables from github to aws ssm by aws cli, refs [GitHub Actions: Sync secrets to AWS](https://github.com/marketplace/actions/sync-secrets-to-aws)
 
 ## Help
 
