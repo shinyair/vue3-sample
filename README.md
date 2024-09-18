@@ -15,6 +15,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 * api mocking library: [Mirage JS](https://miragejs.com/)
 * router framework: [Vue Router](https://router.vuejs.org/) (vue-router)
 * event emitter: [mitt](https://github.com/developit/mitt) (Event Bus - which is included in the `vue` - is removed since Vue 3)
+* logger framework: [loglevel](https://github.com/pimterry/loglevel) with plugin [loglevel-plugin-prefix](https://github.com/kutuluk/loglevel-plugin-prefix)
 * unit test: [Jest](https://jestjs.io/) with [Vue Test Utils](https://test-utils.vuejs.org/)
 * e2e test: [Playwright](https://playwright.dev/)
 * ci workflow: [GitHub Actions](https://docs.github.com/en/actions)
@@ -259,6 +260,11 @@ Implement by AWS CodePipeline + AWS CodeBuild Project with AWS CloudFormation.
 * `mitt` and `tiny-emitter` are suggested by `vue` to implement the Event Bus pattern in Vue 3. [Implement Event Bus in Vue 3](https://v3-migration.vuejs.org/breaking-changes/events-api#event-bus)
 * run `yarn add mitt`
 * provide  `emitter` in vue app and inject it in the components. [Provide / Inject](https://v3-migration.vuejs.org/breaking-changes/global-api#provide-inject)
+
+### loglevel
+* run `yarn add loglevel` and `yarn add loglevel-plugin-prefix`
+* create a `loglevel` logger and config min log level for it according to the documentation: [Setup loglevel](https://github.com/pimterry/loglevel?tab=readme-ov-file#setting-it-up)
+* config the log format by `loglevel-plugin-prefix` according to the documentation: [apply loglevel prefix](https://github.com/kutuluk/loglevel-plugin-prefix?tab=readme-ov-file#node)
 
 ### Jest
 * run `yarn add -D jest jest-environment-jsdom @vue/test-utils @vue/vue3-jest ts-jest babel-jest @babel/preset-env @babel/core  babel-core@bridge`

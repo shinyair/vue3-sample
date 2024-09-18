@@ -1,11 +1,12 @@
 import * as env from "@/constants/env";
+import log from "@/utils/logger";
 import { makeServer } from "@/server";
 
 const printDevEnvVars = () => {
   if (!env.IS_DEV) {
     return;
   }
-  console.log(JSON.stringify(env));
+  log.debug(JSON.stringify(env));
 };
 const runMockServer = () => {
   if (!env.IS_DEV || env.MODE !== "development") {

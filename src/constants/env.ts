@@ -9,3 +9,4 @@ export const IS_PROD = import.meta.env.PROD;
 
 // app env vars
 export const BASE_URL = import.meta.env.VITE_BASE_URL;
+export const LOG_MIN_LEVEL = import.meta.env.VITE_LOG_MIN_LEVEL;

@@ -5658,6 +5658,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"loglevel-plugin-prefix@npm:^0.8.4":
+  version: 0.8.4
+  resolution: "loglevel-plugin-prefix@npm:0.8.4"
+  checksum: 10c0/357524eec4c165ff823b5bbf72e8373ff529e5cb95c1f4b20749847bd5b5b16ab328d6d33d1a9019f1a2dc52e28fca5d595e52f2ee20e24986182a6f9552a9ec
+  languageName: node
+  linkType: hard
+
+"loglevel@npm:^1.9.2":
+  version: 1.9.2
+  resolution: "loglevel@npm:1.9.2"
+  checksum: 10c0/1e317fa4648fe0b4a4cffef6de037340592cee8547b07d4ce97a487abe9153e704b98451100c799b032c72bb89c9366d71c9fb8192ada8703269263ae77acdc7
+  languageName: node
+  linkType: hard
+
 "lru-cache@npm:^10.0.1, lru-cache@npm:^10.2.0":
   version: 10.2.2
   resolution: "lru-cache@npm:10.2.2"
@@ -7668,6 +7682,8 @@ __metadata:
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
     jest-transform-stub: "npm:^2.0.0"
+    loglevel: "npm:^1.9.2"
+    loglevel-plugin-prefix: "npm:^0.8.4"
     miragejs: "npm:^0.2.0-alpha.0"
     mitt: "npm:^3.0.1"
     pinia: "npm:^2.1.7"
