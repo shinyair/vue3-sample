@@ -155,6 +155,28 @@ yarn run test:e2e
 yarn run test:e2e:report
 ```
 
+### Commit/Branch Name Convention
+* commit convention: check [Conventional Commits](https://www.conventionalcommits.org/) for details
+
+```
+<type>(<scope>): <subject>
+<BLANK LINE>
+<body>
+<BLANK LINE>
+<footer>
+```
+
+* branch name converntion: 
+  * feat/xxx
+  * fix/xxx
+  * docs/xxx
+  * styles/xxx
+  * refactor/xxx
+  * chore/xxx
+  * test/xxx
+  * hotfix/xxx
+  * releases/xxx
+
 ## CI/CD
 
 ### CI
@@ -169,6 +191,9 @@ Implement by AWS CodePipeline + AWS CodeBuild Project with AWS CloudFormation.
 * build: define resources by `aws cdk`; build cloudformation templates from defined resources by `aws cdk` in codebuild projects
 * deploy: deploy cloudformation templates by codepipeline
 * the cd pipeline must be manually deploy from local or by a jenkins job on jenkins server at the first time. check more details here: [Continuous integration and delivery (CI/CD) using CDK Pipelines](https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html)
+
+### Version Control
+* version number: `v<major>.<minor>.<patch>`, check details in [Semantic Versioning](https://semver.org/)
 
 ## Create a Vue project with an existing empty GitHub repo step by step
 
