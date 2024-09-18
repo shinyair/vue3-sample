@@ -97,17 +97,22 @@ class AppStackContext():
 def build_app_stack_context() -> AppStackContext:
     """ build common app stack context """
     # load .env file by stage
-    env_file_path = "./"
+    env_file_path = os.path.abspath(os.path.join(__file__, "../../../"))
     env_file_name = ".env"
     app_stage = get_env_or_default(ENV_APP_STAGE, DEFAULT_STAGE)
-    env_file_fullname = f"{env_file_path}/{env_file_name}.{app_stage}"
-    has_env_file = os.path.isfile(env_file_fullname)
-    if not has_env_file and app_stage == DEFAULT_STAGE:
+    if app_stage == DEFAULT_STAGE:
         env_file_fullname = f"{env_file_path}/{env_file_name}"
-        has_env_file = os.path.isfile(env_file_fullname)
-    if not has_env_file:
-        raise RuntimeError(f".env file not found. stage: {app_stage}")
-    load_dotenv(env_file_fullname)
+    else:
+        env_file_fullname = f"{env_file_path}/{env_file_name}.{app_stage}"
+    env_local_file_fullname = f"{env_file_fullname}.local"
+    has_env_file = os.path.isfile(env_file_fullname)
+    has_env_local_file = os.path.isfile(env_local_file_fullname)
+    if not has_env_file and not has_env_local_file:
+        raise RuntimeError(f".env file not found for stage: {app_stage}")
+    if has_env_file:
+        load_dotenv(env_file_fullname)
+    if has_env_local_file:
+        load_dotenv(env_local_file_fullname, override=True)
     # build context
     logger_config = LoggerConfig(
         log_format=get_env_or_default(ENV_APP_LOG_FORMAT),
