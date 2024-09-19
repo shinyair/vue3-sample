@@ -6,9 +6,11 @@
     "cdk": "cd $INIT_CWD && cdk",
     "cdk:clear": "rm -rf cdk.out",
     "cdk:synth": "cdk synth",
-    "cdk:deploy": "cdk deploy"
+    "cdk:deploy": "cdk deploy",
+    "cdk-assets": "cd $INIT_CWD && cdk-assets"
   },
   "dependencies": {
-    "aws-cdk": "^2.158.0"
+    "aws-cdk": "^2.158.0",
+    "cdk-assets": "^2.151.38"
   }
 }
