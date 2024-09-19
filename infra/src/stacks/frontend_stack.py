@@ -141,6 +141,7 @@ class FrontendStack(Stack):
         cloudfront.Distribution(
             self,
             f"{app_prefix}-distribution",
+            comment=f"{stack_context.name}/{stack_context.stage}/{stack_context.variant}/frontend",
             certificate=certificate.Certificate.from_certificate_arn(
                 self,
                 f"{app_prefix}-distribution-certificate",
