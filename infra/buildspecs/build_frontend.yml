@@ -21,6 +21,8 @@ phases:
       - echo "cdk version=$CDK_VERSION"
       - npm install -g aws-cdk@$CDK_VERSION
       - cdk --version
+      - npm install -g cdk-assets@latest
+      - cdk-assets --version
 
   pre_build:
     on-failure: ABORT
@@ -43,8 +45,9 @@ phases:
       - pip install -r requirements.txt
       # run cdk commands by global cdk directly to improve the pipeline performance
       # make sure the cdk in the current account/region is already bootstraped
-      # - cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
       - cdk synth
+      - echo "upload frontend infra assetss"
+      - cdk-assets publish --path ./cdk.out/$FRONTEND_STACK_NAME.assets.json
 
 artifacts:
   files:

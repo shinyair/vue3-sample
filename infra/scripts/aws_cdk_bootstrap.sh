@@ -78,9 +78,14 @@ echo ""
 echo "------------------------------"
 echo "bootstrap cdk ..."
 if [[ ! -z "$PROFILE" ]]; then
-  npm run cdk bootstrap $AWS_ACCOUNT/$AWS_REGION -- --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess --profile $PROFILE
+  npm run cdk bootstrap $AWS_ACCOUNT/$AWS_REGION -- \
+    --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess \
+    --termination-protection \
+    --profile $PROFILE
 else
-  npm run cdk bootstrap $AWS_ACCOUNT/$AWS_REGION -- --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
+  npm run cdk bootstrap $AWS_ACCOUNT/$AWS_REGION -- \
+    --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess \
+    --termination-protection
 fi
 echo "------------------------------"
 echo "done"

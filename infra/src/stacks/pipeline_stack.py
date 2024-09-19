@@ -98,6 +98,7 @@ class PipelineStack(Stack):
         self.app_prefix = stack_context.get_app_prefix().lower()
         self.logger.info(str(stack_context))
 
+        frontend_stack_name = f"{self.app_prefix}-frotnend-stack"
         pipeline_s3_artifact_bucket = s3.Bucket(
             self,
             f"{self.app_prefix}-s3-pipeline-artifact",
@@ -106,22 +107,29 @@ class PipelineStack(Stack):
             removal_policy=RemovalPolicy.DESTROY,
         )
         pipeline_role = self._pipeline_role()
+        cloudformation_role = self._cloudformation_role()
         source_frontend_artifact, source_stage = self._source_stage(pipeline_role)
-        update_pipeline_stage = self._update_pipeline_stage(source_frontend_artifact, pipeline_role)
-        build_frontend_artifact, build_stage = self._build_stage(source_frontend_artifact, pipeline_role)
-        deploy_stage = self._deploy_stage(build_frontend_artifact, pipeline_role)
+        build_frontend_artifact, build_stage = self._build_stage(
+            frontend_stack_name,
+            source_frontend_artifact,
+            pipeline_role,
+        )
+        deploy_stage = self._deploy_stage(
+            frontend_stack_name,
+            build_frontend_artifact,
+            cloudformation_role,
+        )
 
         codepipeline.Pipeline(
             self,
             f"{self.app_prefix}-pipeline-build-deploy",
             pipeline_name=f"{self.app_prefix}-pipeline-build-deploy",
             pipeline_type=codepipeline.PipelineType.V1,
-            restart_execution_on_update=True,
+            restart_execution_on_update=False,
             cross_account_keys=False,
             artifact_bucket=pipeline_s3_artifact_bucket,
             stages=[
                 source_stage,
-                update_pipeline_stage,
                 build_stage,
                 deploy_stage,
             ],
@@ -129,7 +137,7 @@ class PipelineStack(Stack):
         )
 
     def _pipeline_role(self) -> iam.Role:
-        pipeline_role = iam.Role(
+        role = iam.Role(
             self,
             f"{self.app_prefix}-role-pipeline",
             role_name=f"{self.app_prefix}-role-pipeline",
@@ -140,11 +148,12 @@ class PipelineStack(Stack):
                 iam.AccountPrincipal(self.stack_context.aws_env_config.account),
             ),
         )
-        pipeline_role.add_to_policy(iam.PolicyStatement(
+        role.add_to_policy(iam.PolicyStatement(
             effect=iam.Effect.ALLOW,
             actions=[
                 "logs:*",
                 "s3:*",
+                "lambda:*",
                 "codebuild:*",
                 "cloudformation:*",
                 "ssm:*",
@@ -152,6 +161,10 @@ class PipelineStack(Stack):
                 "iam:CreateRole",
                 "iam:CreatePolicy",
                 "iam:PutRolePolicy",
+                "iam:AttachRolePolicy",
+                "iam:DetachRolePolicy",
+                "iam:DeleteRolePolicy",
+                "iam:DeleteRole",
                 "iam:PassRole",
                 "iam:GetRole",
                 "sts:AssumeRole",
@@ -159,7 +172,26 @@ class PipelineStack(Stack):
             # TODO: limit resource
             resources=["*"]
         ))
-        return pipeline_role
+        return role
+
+    def _cloudformation_role(self) -> iam.Role:
+        role = iam.Role(
+            self,
+            f"{self.app_prefix}-role-cloudformation",
+            role_name=f"{self.app_prefix}-role-cloudformation",
+            assumed_by=iam.CompositePrincipal(
+                iam.ServicePrincipal("codepipeline.amazonaws.com"),
+                iam.ServicePrincipal("cloudformation.amazonaws.com"),
+                iam.AccountPrincipal(self.stack_context.aws_env_config.account),
+            ),
+        )
+        # grant admin permission for cloudformation deployment
+        role.add_to_policy(iam.PolicyStatement(
+            effect=iam.Effect.ALLOW,
+            actions=["*"],
+            resources=["*"]
+        ))
+        return role
 
     def _source_stage(self, pipeline_role: iam.Role) -> tuple[codepipeline.Artifact, codepipeline.StageOptions]:
         source_frontend_artifact = codepipeline.Artifact("SourceFrontendArtf")
@@ -179,64 +211,9 @@ class PipelineStack(Stack):
         )
         return source_frontend_artifact, source_stage
 
-    def _update_pipeline_stage(
-        self,
-        source_frontend_artifact: codepipeline.Artifact,
-        pipeline_role: iam.Role,
-    ) -> codepipeline.StageOptions:
-        build_pipeline_artifact = codepipeline.Artifact("BuildOutputPipelineArtifact")
-        build_project_pipeline = codebuild.PipelineProject(
-            self,
-            f"{self.app_prefix}-build-pipeline",
-            project_name=f"{self.app_prefix}-build-pipeline",
-            environment=codebuild.BuildEnvironment(
-                build_image=codebuild.LinuxBuildImage.STANDARD_5_0,
-                compute_type=codebuild.ComputeType.SMALL,
-            ),
-            build_spec=codebuild.BuildSpec.from_source_filename("infra/buildspecs/build_pipeline.yml"),
-            timeout=Duration.minutes(20),
-            queued_timeout=Duration.minutes(5),
-            role=pipeline_role,
-        )
-        build_pipeline_action = actions.CodeBuildAction(
-            action_name="BuildPipeline",
-            project=build_project_pipeline,
-            input=source_frontend_artifact,
-            outputs=[build_pipeline_artifact],
-            environment_variables={
-                "STAGE": codebuild.BuildEnvironmentVariable(
-                    value=self.stack_context.stage,
-                    type=codebuild.BuildEnvironmentVariableType.PLAINTEXT,
-                ),
-                "CDK_VERSION": codebuild.BuildEnvironmentVariable(
-                    value=CDK_VERSION,
-                    type=codebuild.BuildEnvironmentVariableType.PLAINTEXT,
-                ),
-            },
-            role=pipeline_role,
-            run_order=1,
-        )
-        deploy_pipeline_action = actions.CloudFormationCreateUpdateStackAction(
-            action_name="DeployPipeline",
-            stack_name=self.stack_name,
-            template_path=build_pipeline_artifact.at_path(f"infra/cdk.out/{self.stack_name}.template.json"),
-            admin_permissions=False,
-            cfn_capabilities=[CfnCapabilities.NAMED_IAM],
-            deployment_role=pipeline_role,
-            role=pipeline_role,
-            run_order=2,
-        )
-        update_pipeline_stage = codepipeline.StageOptions(
-            stage_name="UpdatePipeline",
-            actions=[
-                build_pipeline_action,
-                deploy_pipeline_action,
-            ],
-        )
-        return update_pipeline_stage
-
     def _build_stage(
         self,
+        frontend_stack_name: str,
         source_frontend_artifact: codepipeline.Artifact,
         pipeline_role: iam.Role,
     ) -> tuple[codepipeline.Artifact, codepipeline.StageOptions]:
@@ -268,6 +245,10 @@ class PipelineStack(Stack):
                     value=CDK_VERSION,
                     type=codebuild.BuildEnvironmentVariableType.PLAINTEXT,
                 ),
+                "FRONTEND_STACK_NAME": codebuild.BuildEnvironmentVariable(
+                    value=frontend_stack_name,
+                    type=codebuild.BuildEnvironmentVariableType.PLAINTEXT,
+                ),
             },
             role=pipeline_role,
         )
@@ -279,19 +260,33 @@ class PipelineStack(Stack):
 
     def _deploy_stage(
         self,
+        frontend_stack_name: str,
         build_frontend_artifact: codepipeline.Artifact,
-        pipeline_role: iam.Role,
+        cloudformation_role: iam.Role,
     ) -> codepipeline.StageOptions:
-        frontend_stack_name = f"{self.app_prefix}-frotnend-stack"
+        # need to upload assets before deploying the cloudformation stack by template
+        # https://github.com/aws/aws-cdk/issues/18534
+        # https://github.com/cdklabs/cdk-assets
+
+        # TODO: deployment_role vs role?
         deploy_frontend_action = actions.CloudFormationCreateUpdateStackAction(
             action_name="DeployFrontend",
-            stack_name=f"{self.app_prefix}-frotnend-stack",
+            stack_name=frontend_stack_name,
             template_path=build_frontend_artifact.at_path(f"infra/cdk.out/{frontend_stack_name}.template.json"),
             admin_permissions=False,
             cfn_capabilities=[CfnCapabilities.NAMED_IAM],
-            deployment_role=pipeline_role,
-            role=pipeline_role,
+            deployment_role=cloudformation_role,
+            role=cloudformation_role,
         )
+        # need to delete the frontend stack before removing the frontend deployment action
+        # delete_frontend_action = actions.CloudFormationDeleteStackAction(
+        #     action_name="DeleteFrontend",
+        #     stack_name=frontend_stack_name,
+        #     admin_permissions=False,
+        #     cfn_capabilities=[CfnCapabilities.NAMED_IAM],
+        #     deployment_role=cloudformation_role,
+        #     role=cloudformation_role,
+        # )
         deploy_stage = codepipeline.StageOptions(
             stage_name="Deploy",
             actions=[deploy_frontend_action],
