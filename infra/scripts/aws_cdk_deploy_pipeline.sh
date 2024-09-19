@@ -77,14 +77,14 @@ npm install
 npm run cdk:clear
 
 if [[ ! -z "$PROFILE" ]]; then
-  echo "cdk synth pipeline statk ..."
+  echo "cdk synth pipeline stack ..."
   npm run cdk synth -- --app "python ./src/app_pipeline.py" --profile $PROFILE
-  echo "cdk deploy pipeline statk ..."
+  echo "cdk deploy pipeline stack ..."
   npm run cdk deploy -- --app "python ./src/app_pipeline.py" --profile $PROFILE
 else
-  echo "cdk synth pipeline statk ..."
+  echo "cdk synth pipeline stack ..."
   npm run cdk synth -- --app "python ./src/app_pipeline.py"
-  echo "cdk deploy pipeline statk ..."
+  echo "cdk deploy pipeline stack ..."
   npm run cdk deploy -- --app "python ./src/app_pipeline.py"
 fi
 
