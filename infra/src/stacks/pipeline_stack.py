@@ -107,7 +107,6 @@ class PipelineStack(Stack):
         )
         pipeline_role = self._pipeline_role()
         source_frontend_artifact, source_stage = self._source_stage(pipeline_role)
-        update_pipeline_stage = self._update_pipeline_stage(source_frontend_artifact, pipeline_role)
         build_frontend_artifact, build_stage = self._build_stage(source_frontend_artifact, pipeline_role)
         deploy_stage = self._deploy_stage(build_frontend_artifact, pipeline_role)
 
@@ -121,7 +120,6 @@ class PipelineStack(Stack):
             artifact_bucket=pipeline_s3_artifact_bucket,
             stages=[
                 source_stage,
-                update_pipeline_stage,
                 build_stage,
                 deploy_stage,
             ],
@@ -178,62 +176,6 @@ class PipelineStack(Stack):
             actions=[source_frontend_action],
         )
         return source_frontend_artifact, source_stage
-
-    def _update_pipeline_stage(
-        self,
-        source_frontend_artifact: codepipeline.Artifact,
-        pipeline_role: iam.Role,
-    ) -> codepipeline.StageOptions:
-        build_pipeline_artifact = codepipeline.Artifact("BuildOutputPipelineArtifact")
-        build_project_pipeline = codebuild.PipelineProject(
-            self,
-            f"{self.app_prefix}-build-pipeline",
-            project_name=f"{self.app_prefix}-build-pipeline",
-            environment=codebuild.BuildEnvironment(
-                build_image=codebuild.LinuxBuildImage.STANDARD_5_0,
-                compute_type=codebuild.ComputeType.SMALL,
-            ),
-            build_spec=codebuild.BuildSpec.from_source_filename("infra/buildspecs/build_pipeline.yml"),
-            timeout=Duration.minutes(20),
-            queued_timeout=Duration.minutes(5),
-            role=pipeline_role,
-        )
-        build_pipeline_action = actions.CodeBuildAction(
-            action_name="BuildPipeline",
-            project=build_project_pipeline,
-            input=source_frontend_artifact,
-            outputs=[build_pipeline_artifact],
-            environment_variables={
-                "STAGE": codebuild.BuildEnvironmentVariable(
-                    value=self.stack_context.stage,
-                    type=codebuild.BuildEnvironmentVariableType.PLAINTEXT,
-                ),
-                "CDK_VERSION": codebuild.BuildEnvironmentVariable(
-                    value=CDK_VERSION,
-                    type=codebuild.BuildEnvironmentVariableType.PLAINTEXT,
-                ),
-            },
-            role=pipeline_role,
-            run_order=1,
-        )
-        deploy_pipeline_action = actions.CloudFormationCreateUpdateStackAction(
-            action_name="DeployPipeline",
-            stack_name=self.stack_name,
-            template_path=build_pipeline_artifact.at_path(f"infra/cdk.out/{self.stack_name}.template.json"),
-            admin_permissions=False,
-            cfn_capabilities=[CfnCapabilities.NAMED_IAM],
-            deployment_role=pipeline_role,
-            role=pipeline_role,
-            run_order=2,
-        )
-        update_pipeline_stage = codepipeline.StageOptions(
-            stage_name="UpdatePipeline",
-            actions=[
-                build_pipeline_action,
-                deploy_pipeline_action,
-            ],
-        )
-        return update_pipeline_stage
 
     def _build_stage(
         self,
