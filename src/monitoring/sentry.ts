@@ -3,7 +3,12 @@ import { Router } from "vue-router";
 import * as Sentry from "@sentry/vue";
 
 import log from "@/utils/logger";
-import { IS_DEV, SENTRY_DNS_URL, SENTRY_TRACE_DOMAINS } from "@/constants/env";
+import {
+  MODE,
+  IS_DEV,
+  SENTRY_DNS_URL,
+  SENTRY_TRACE_DOMAINS,
+} from "@/constants/env";
 
 const TRACABLE_DOMAINS = (SENTRY_TRACE_DOMAINS || "").split(",");
 
@@ -15,6 +20,8 @@ export const createSentry = (app: App, router: Router) => {
   Sentry.init({
     app,
     dsn: SENTRY_DNS_URL,
+    environment: MODE,
+    release: MODE,
     integrations: [
       Sentry.browserTracingIntegration({ router }),
       Sentry.replayIntegration(),

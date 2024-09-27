@@ -22,6 +22,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 * aws command line interface: [AWS CLI](https://aws.amazon.com/cli/)
 * aws infrastructure framework: [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/home.html) with `python` and `pipenv`
 * sensitive environment variable management: [Using secrets in GitHub Actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) and [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html)
+* monitoring framework: [Sentry](https://docs.sentry.io/)
 
 ## Description
 
@@ -84,6 +85,7 @@ project
 |    ├── requirements-dev.txt # exported requirements file with dev dependencies
 |    └── requirements.txt # exported requirements file without dev dependencies
 ├── public # public static resources of the frontend
+├── scripts # helper scripts
 ├── src
 |    ├── apis # api clients based on axois
 |    ├── assets # resources
@@ -329,6 +331,16 @@ Implement by AWS CodePipeline + AWS CodeBuild Project with AWS CloudFormation.
 * issue and aws credentials for github to connect from github actions workflow to aws by aws cli
 * add sensitive environment variables as secrets in GitHub
 * add a github actions workflow to sync sensitive environment variables from github to aws ssm by aws cli, refs [GitHub Actions: Sync secrets to AWS](https://github.com/marketplace/actions/sync-secrets-to-aws)
+
+### Sentry
+* run `yarn add @sentry/vue`
+* setup sentry acccording to [Sentry for VUE](https://docs.sentry.io/platforms/javascript/guides/vue/)
+  * a dns url belongs to you only will be issued in the guide
+* [optional] configure github actions to release source map to Sentry
+  * run `npx @sentry/wizard@latest -i sourcemaps`
+  * add secrets `SENTRY_ORG`, `SENTRY_PROJECT` and `SENTRY_AUTH_TOKEN` in `[your_repository] > Settings > Secrets and variables > Actions > Repository Secrets`
+  * add a github actions workflow to upload source map to sentry server by running cmd `yarn run build` with env var `SENTRY_AUTH_TOKEN`
+  * note that when you run `yarn run build` on your local env or in build & deploy pipeline, the sentry plugin will also upload a release to the sentry server, better to add an env variable to guarantee sentry plugin will be triggered by github actions workflow only.
 
 ## Help
 

@@ -1,0 +1,23 @@
+name: sentry
+on:
+  push:
+    branches:
+      - main
+jobs:
+  upload-source-map:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: npm install -g yarn && yarn
+      - name: Upload source map
+        run: yarn run build
+        env:
+          SENTRY_UPLOAD_SOURCE_MAP: "true"
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}

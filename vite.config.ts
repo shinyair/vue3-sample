@@ -3,7 +3,7 @@ import { defineConfig, loadEnv, PluginOption } from "vite";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
 
-const appendSentryPlugin = (plugins: PluginOption[]) => {
+const appendSentryPlugin = (mode: string, plugins: PluginOption[]) => {
   const isSentryEnabled = process.env.SENTRY_UPLOAD_SOURCE_MAP === "true";
   if (!isSentryEnabled) {
     return plugins;
@@ -16,9 +16,8 @@ const appendSentryPlugin = (plugins: PluginOption[]) => {
       project: process.env.SENTRY_PROJECT,
       authToken: process.env.SENTRY_AUTH_TOKEN,
       release: {
-        inject: false,
-        create: false,
-        finalize: false,
+        name: mode,
+        dist: mode,
       },
     }),
   ];
@@ -29,7 +28,7 @@ export default defineConfig(({ mode }: { mode: string }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
 
   let plugins = [vue()];
-  plugins = appendSentryPlugin(plugins);
+  plugins = appendSentryPlugin(mode, plugins);
 
   return {
     plugins: plugins,
