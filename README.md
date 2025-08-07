@@ -230,13 +230,17 @@ Implement by AWS CodePipeline + AWS CodeBuild Project with AWS CloudFormation.
 * config `Element Plus Icons` according to [Element Plus Icons Configurations](https://element-plus.org/en-US/component/icon.html)
 * config `Dark Mode` according to [Dark Mode](https://element-plus.org/en-US/guide/dark-mode.html)
 
-### Tailwind CSS
+### Tailwind CSS (latest=v2 when implementing)
 * run `yarn add -D tailwindcss@latest postcss@latest autoprefixer@latest`
-* run `yarn tailwindcss init -p`
+* run `yarn dlx tailwindcss init -p`
 * config `Tailwind CSS` according to [Install Tailwind CSS with Vue 3 and Vite](https://v2.tailwindcss.com/docs/guides/vue-3-vite)
 * add `typography` settings if necessary
   * run `yarn add -D @tailwindcss/typography`
   * add `@tailwindcss/typography` in `tailwind.config.js` plugins for font configurations [Plugin Configurations](https://v2.tailwindcss.com/docs/configuration#plugins)
+
+### Tailwind CSS (latest=v4, updated at 2025-08)
+* run `yarn add -D tailwindcss @tailwindcss/vite`
+* config `Tailwind CSS` according to [Installing Tailwind CSS with Vite](https://tailwindcss.com/docs/installation/using-vite)
 
 ### Pinia
 * run `yarn add pinia`
