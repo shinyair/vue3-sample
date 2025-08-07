@@ -29,7 +29,7 @@ A sample project of Vue 3 + Vite + TypeScript with a step-by-step guide to creat
 
 ## Prerequisites
 
-* node: 18+
+* node: 22+
 * npm: *
 * yarn: *
 * aws cli: v2
@@ -201,7 +201,7 @@ Implement by AWS CodePipeline + AWS CodeBuild Project with AWS CloudFormation.
 ### yarn v2
 * git clone the empty repo
 * run `yarn create vite ./ --template vue-ts` under project root folder and init vue with existing files
-* run `yarn set version latest`
+* run `yarn set version stable`
 * edit `.gitignore` according to [yarn-gitignore](https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored)
 * run `yarn add --dev typescript` to install typescript as a development dependency for the project
 * add `nodeLinker: node-modules` in `.yarnrc.yml` to disable pnp and add `node_modules` in `.gitignore`
